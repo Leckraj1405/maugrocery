@@ -3,10 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:maugrocery/addItem.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/dashboard.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:vibration/vibration.dart';
 
 import 'custom_dialog.dart';
