@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maugrocery/common.dart';
+import 'package:maugrocery/custom_dialog.dart';
 import 'package:vibration/vibration.dart';
 
 class EditUserDetailsPage extends StatefulWidget {
@@ -206,6 +207,27 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (context) => CustomDialog(
+                                content: Text(
+                                  'Update Successful',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                                title: Text('MauGrocery'),
+                                firstColor: Colors.green,
+                                secondColor: Colors.white,
+                                headerIcon: Icon(
+                                  Icons.check_circle_outline,
+                                  size: 120.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+
                             Vibration.vibrate();
                             if (edituserDetailsFormKey.currentState
                                 .validate()) {

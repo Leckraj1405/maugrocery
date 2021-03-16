@@ -6,6 +6,7 @@ import 'package:maugrocery/common.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
+import 'custom_dialog.dart';
 import 'main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -88,7 +89,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("New List"),
+        title: Text("Dashboard - Add List"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(
@@ -259,6 +260,26 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                       child: TextButton(
                         onPressed: () async {
+                          showDialog(
+                            context: context,
+                            builder: (context) => CustomDialog(
+                              content: Text(
+                                'Sign Out Successful',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                              title: Text('MauGrocery'),
+                              firstColor: Colors.green,
+                              secondColor: Colors.white,
+                              headerIcon: Icon(
+                                Icons.check_circle_outline,
+                                size: 120.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          );
                           Vibration.vibrate(duration: 1000);
                           await FirebaseAuth.instance.signOut();
                           Navigator.push(
@@ -269,7 +290,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           );
                         },
                         child: Text(
-                          "Log Out",
+                          "Sign Out",
                           style: CustomTextStyles.buttonText,
                         ),
                       ),

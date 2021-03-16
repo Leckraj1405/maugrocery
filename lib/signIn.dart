@@ -9,6 +9,8 @@ import 'package:maugrocery/dashboard.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:vibration/vibration.dart';
 
+import 'custom_dialog.dart';
+
 class SignInPage extends StatefulWidget {
   @override
   _SignInPageState createState() => _SignInPageState();
@@ -37,30 +39,71 @@ class _SignInPageState extends State<SignInPage> {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        // showDialog(
+        //     context: context,
+        //     child: AlertDialog(
+        //       content: Text('User not found'),
+        //       actions: [
+        //         FlatButton(
+        //           child: Text('Ok'),
+        //           onPressed: () => Navigator.pop(context),
+        //         ),
+        //       ],
+        //     ));
         showDialog(
-            context: context,
-            child: AlertDialog(
-              content: Text('User not found'),
-              actions: [
-                FlatButton(
-                  child: Text('Ok'),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-            ));
+          context: context,
+          builder: (context) => CustomDialog(
+            content: Text(
+              'User Not Found',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 20.0,
+              ),
+            ),
+            title: Text('MauGrocery'),
+            firstColor: Colors.red,
+            secondColor: Colors.white,
+            headerIcon: Icon(
+              Icons.error_outline,
+              size: 120.0,
+              color: Colors.white,
+            ),
+          ),
+        );
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        // showDialog(
+        //     context: context,
+        //     child: AlertDialog(
+        //       content: Text('wrong password'),
+        //       actions: [
+        //         FlatButton(
+        //           child: Text('Ok'),
+        //           onPressed: () => Navigator.pop(context),
+        //         ),
+        //       ],
+        //     ));
+
         showDialog(
-            context: context,
-            child: AlertDialog(
-              content: Text('wrong password'),
-              actions: [
-                FlatButton(
-                  child: Text('Ok'),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-            ));
+          context: context,
+          builder: (context) => CustomDialog(
+            content: Text(
+              'Incorrect Password',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 20.0,
+              ),
+            ),
+            title: Text('MauGrocery'),
+            firstColor: Colors.red,
+            secondColor: Colors.white,
+            headerIcon: Icon(
+              Icons.error_outline,
+              size: 120.0,
+              color: Colors.white,
+            ),
+          ),
+        );
       }
     }
   }
@@ -74,7 +117,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign In"),
+        title: Text("User Sign In"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(

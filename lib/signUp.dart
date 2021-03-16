@@ -7,13 +7,14 @@ import 'package:vibration/vibration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'custom_dialog.dart';
+
 class SignUpPage extends StatefulWidget {
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String username;
   String email;
   String password;
   String confirmpassword;
@@ -47,7 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Register"),
+        title: Text("User Registration"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(
@@ -66,42 +67,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       SizedBox(
                         height: 50.0,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Text(
-                          "Username",
-                          style: CustomTextStyles.fieldLabelStyle,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Container(
-                        height: 50.0,
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: TextFormField(
-                          validator: (username) {
-                            if (username.isEmpty) {
-                              return "Username cannot be empty";
-                            } else if (username.length < 3) {
-                              return "Username too short";
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            HapticFeedback.mediumImpact();
-                            username = value;
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 35.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -231,22 +196,27 @@ class _SignUpPageState extends State<SignUpPage> {
                               _register(
                                   email: emailController.text,
                                   password: passwordController.text);
+                              showDialog(
+                                context: context,
+                                builder: (context) => CustomDialog(
+                                  content: Text(
+                                    'Registration Successful',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  title: Text('MauGrocery'),
+                                  firstColor: Colors.green,
+                                  secondColor: Colors.white,
+                                  headerIcon: Icon(
+                                    Icons.check_circle_outline,
+                                    size: 120.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              );
                             }
-
-                            // try {
-                            //   final newUser =
-                            //       await _auth.createUserWithEmailAndPassword(
-                            //           email: email, password: password);
-                            //   if (newUser != null) {
-                            //     Navigator.pushNamed(context, DashboardPage.id);
-                            //   }
-                            // } catch (e) {
-                            //   print(e);
-                            // }
-
-                            // if (!isEmail(email)) {
-                            //   return "email incorrect";
-                            // }
 
                             // Navigator.push(
                             //     context,
