@@ -53,7 +53,7 @@ class _SignInPageState extends State<SignInPage> {
         showDialog(
             context: context,
             child: AlertDialog(
-              content: Text('wrong-password'),
+              content: Text('wrong password'),
               actions: [
                 FlatButton(
                   child: Text('Ok'),
