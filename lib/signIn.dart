@@ -5,8 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/dashboard.dart';
 import 'package:vibration/vibration.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'custom_dialog.dart';
 import 'loading.dart';
 
@@ -39,26 +37,26 @@ class _SignInPageState extends State<SignInPage> {
           builder: (context) => DashboardPage(),
         ),
       );
-      showDialog(
-        context: context,
-        builder: (context) => CustomDialog(
-          content: Text(
-            'Sign In Successful',
-            style: TextStyle(
-              fontWeight: FontWeight.w900,
-              fontSize: 20.0,
-            ),
-          ),
-          title: Text('MauGrocery'),
-          firstColor: Colors.green,
-          secondColor: Colors.white,
-          headerIcon: Icon(
-            Icons.check_circle_outline,
-            size: 120.0,
-            color: Colors.white,
-          ),
-        ),
-      );
+      // showDialog(
+      //   context: context,
+      //   builder: (context) => CustomDialog(
+      //     content: Text(
+      //       'Sign In Successful',
+      //       style: TextStyle(
+      //         fontWeight: FontWeight.w900,
+      //         fontSize: 20.0,
+      //       ),
+      //     ),
+      //     title: Text('MauGrocery'),
+      //     firstColor: Colors.green,
+      //     secondColor: Colors.white,
+      //     headerIcon: Icon(
+      //       Icons.check_circle_outline,
+      //       size: 120.0,
+      //       color: Colors.white,
+      //     ),
+      //   ),
+      // );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setState(() {
@@ -248,12 +246,14 @@ class _SignInPageState extends State<SignInPage> {
                                   Vibration.vibrate();
                                   if (signInFormKey.currentState.validate()) {
                                     //code for sign in
-
+                                    setState(() {
+                                      loading = true;
+                                    });
                                     print('here');
+                                    _signIn(
+                                        email: emailController.text,
+                                        password: passwordController.text);
                                   }
-                                  _signIn(
-                                      email: emailController.text,
-                                      password: passwordController.text);
 
                                   // try {
                                   //   final user = await _auth.signInWithEmailAndPassword(
