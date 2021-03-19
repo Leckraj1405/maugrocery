@@ -20,6 +20,7 @@ dependencies:
   cloud_firestore: any
   firebase_core: "^0.7.0"
   firebase_auth: "^0.20.1"
+  flutter_spinkit: ^4.1.2
   firebase_dynamic_links: any
 
 dev_dependencies:

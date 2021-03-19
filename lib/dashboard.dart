@@ -260,6 +260,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                       child: TextButton(
                         onPressed: () async {
+                          Vibration.vibrate(duration: 1000);
+                          await FirebaseAuth.instance.signOut();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MauGrocery(),
+                            ),
+                          );
                           showDialog(
                             context: context,
                             builder: (context) => CustomDialog(
@@ -278,14 +286,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                 size: 120.0,
                                 color: Colors.white,
                               ),
-                            ),
-                          );
-                          Vibration.vibrate(duration: 1000);
-                          await FirebaseAuth.instance.signOut();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MauGrocery(),
                             ),
                           );
                         },

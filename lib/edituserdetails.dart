@@ -11,12 +11,8 @@ class EditUserDetailsPage extends StatefulWidget {
 }
 
 class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
-  TextEditingController usernameController = new TextEditingController();
-  TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
-  String username;
-  String email;
   String password;
   String confirmpassword;
 
@@ -68,8 +64,8 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                             return null;
                           },
                           onChanged: (value) {
-                            HapticFeedback.mediumImpact();
-                            password = value;
+                            Vibration.vibrate();
+                            confirmpassword = value;
                           },
                           obscureText: true,
                           controller: passwordController,
@@ -159,16 +155,12 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                               //code for sign up
                               print('here');
                             }
-                            String username = usernameController.text;
-                            String email = emailController.text;
                             String password = passwordController.text;
 
-                            print("This is your new username: $username");
-                            print("This is your new email address: $email");
                             print("This is your new password: $password");
                           },
                           child: Text(
-                            "Update Details",
+                            "Update & Save",
                             style: CustomTextStyles.buttonText,
                           ),
                         ),
