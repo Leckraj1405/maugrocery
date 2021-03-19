@@ -5,6 +5,8 @@ import 'package:maugrocery/common.dart';
 import 'package:maugrocery/custom_dialog.dart';
 import 'package:vibration/vibration.dart';
 
+import 'dashboard.dart';
+
 class EditUserDetailsPage extends StatefulWidget {
   @override
   _EditUserDetailsPageState createState() => _EditUserDetailsPageState();
@@ -128,6 +130,10 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DashboardPage()));
                             showDialog(
                               context: context,
                               builder: (context) => CustomDialog(
