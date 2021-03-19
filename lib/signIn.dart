@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:form_validator/form_validator.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/dashboard.dart';
 import 'package:vibration/vibration.dart';
@@ -172,12 +173,10 @@ class _SignInPageState extends State<SignInPage> {
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: TextFormField(
                                 controller: emailController,
-                                validator: (email) {
-                                  if (email.isEmpty) {
-                                    return "Email cannot be empty";
-                                  }
-                                  return null;
-                                },
+                                validator: ValidationBuilder()
+                                    .email()
+                                    .maxLength(50)
+                                    .build(),
                                 onChanged: (value) {
                                   HapticFeedback.mediumImpact();
                                   email = value;
@@ -258,18 +257,9 @@ class _SignInPageState extends State<SignInPage> {
                                   // try {
                                   //   final user = await _auth.signInWithEmailAndPassword(
                                   //       email: email, password: password);
-                                  //
                                   //   if (user != null) {
                                   //     Navigator.pushNamed(context, DashboardPage.id);
                                   //   }
-                                  //
-                                  //   // String email = emailController.text;
-                                  //   // String password = passwordController.text;
-                                  //   //
-                                  //   // print("This is your email: $email");
-                                  //   // print("This is your password: $password");
-
-                                  //
                                   // } catch (e) {
                                   //   print(e);
                                   // }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:form_validator/form_validator.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/dashboard.dart';
 import 'package:maugrocery/loading.dart';
@@ -47,11 +48,51 @@ class _SignUpPageState extends State<SignUpPage> {
         setState(() {
           loading = false;
         });
+        showDialog(
+          context: context,
+          builder: (context) => CustomDialog(
+            content: Text(
+              'Password too weak!',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 20.0,
+              ),
+            ),
+            title: Text('MauGrocery'),
+            firstColor: Colors.red,
+            secondColor: Colors.white,
+            headerIcon: Icon(
+              Icons.error_outline,
+              size: 120.0,
+              color: Colors.white,
+            ),
+          ),
+        );
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
         setState(() {
           loading = false;
         });
+        showDialog(
+          context: context,
+          builder: (context) => CustomDialog(
+            content: Text(
+              'Email Already Exists',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 20.0,
+              ),
+            ),
+            title: Text('MauGrocery'),
+            firstColor: Colors.red,
+            secondColor: Colors.white,
+            headerIcon: Icon(
+              Icons.error_outline,
+              size: 120.0,
+              color: Colors.white,
+            ),
+          ),
+        );
       }
     } catch (e) {
       print(e);
@@ -100,12 +141,16 @@ class _SignUpPageState extends State<SignUpPage> {
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: TextFormField(
                                 controller: emailController,
-                                validator: (email) {
-                                  if (email.isEmpty) {
-                                    return "Email cannot be empty";
-                                  }
-                                  return null;
-                                },
+                                // validator: (email) {
+                                //   if (email.isEmpty) {
+                                //     return "Email cannot be empty";
+                                //   }
+                                //   return null;
+                                // },
+                                validator: ValidationBuilder()
+                                    .email()
+                                    .maxLength(50)
+                                    .build(),
                                 onChanged: (value) {
                                   HapticFeedback.mediumImpact();
                                   email = value;
@@ -214,33 +259,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                     setState(() {
                                       loading = true;
                                     });
-
                                     _register(
                                       email: emailController.text,
                                       password: passwordController.text,
                                     );
-                                    // showDialog(
-                                    //   context: context,
-                                    //   builder: (context) => CustomDialog(
-                                    //     content: Text(
-                                    //       'Registration Successful',
-                                    //       style: TextStyle(
-                                    //         fontWeight: FontWeight.w900,
-                                    //         fontSize: 20.0,
-                                    //       ),
-                                    //     ),
-                                    //     title: Text('MauGrocery'),
-                                    //     firstColor: Colors.green,
-                                    //     secondColor: Colors.white,
-                                    //     headerIcon: Icon(
-                                    //       Icons.check_circle_outline,
-                                    //       size: 120.0,
-                                    //       color: Colors.white,
-                                    //     ),
-                                    //   ),
-                                    // );
                                   }
-
                                   // Navigator.push(
                                   //     context,
                                   //     MaterialPageRoute(
