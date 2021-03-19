@@ -23,7 +23,6 @@ class _SignInPageState extends State<SignInPage> {
   // final _auth = FirebaseAuth.instance;
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  //FirebaseUser loggedInUser;
 
   _signIn({String email, String password}) async {
     try {
