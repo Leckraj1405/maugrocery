@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maugrocery/addItem.dart';
 import 'package:vibration/vibration.dart';
 
 class CardWidget extends StatefulWidget {
@@ -56,6 +57,12 @@ class _CardWidgetState extends State<CardWidget> {
                       child: TextButton(
                         onPressed: () {
                           Vibration.vibrate();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AddItemPage(),
+                            ),
+                          );
                         },
                         child: Row(
                           children: [
