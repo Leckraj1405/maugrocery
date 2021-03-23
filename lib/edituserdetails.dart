@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/custom_dialog.dart';
 import 'package:vibration/vibration.dart';
-
 import 'dashboard.dart';
 
 class EditUserDetailsPage extends StatefulWidget {
@@ -14,6 +13,7 @@ class EditUserDetailsPage extends StatefulWidget {
 
 class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
   TextEditingController passwordController = new TextEditingController();
+  TextEditingController confirmpasswordController = new TextEditingController();
 
   String password;
   String confirmpassword;
@@ -57,6 +57,7 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                         height: 50.0,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
+                          controller: passwordController,
                           validator: (password) {
                             if (password.isEmpty) {
                               return "Password cannot be empty";
@@ -67,11 +68,11 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           },
                           onChanged: (value) {
                             Vibration.vibrate();
-                            confirmpassword = value;
+                            password = value;
                           },
                           obscureText: true,
-                          controller: passwordController,
                           decoration: InputDecoration(
+                            labelText: 'Minimum 6 Characters',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -130,40 +131,38 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DashboardPage()));
-                            showDialog(
-                              context: context,
-                              builder: (context) => CustomDialog(
-                                content: Text(
-                                  'Update Successful',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                                title: Text('MauGrocery'),
-                                firstColor: Colors.green,
-                                secondColor: Colors.white,
-                                headerIcon: Icon(
-                                  Icons.check_circle_outline,
-                                  size: 120.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            );
+                            String password = passwordController.text;
+                            print("This is your new password: $password");
 
                             Vibration.vibrate();
                             if (edituserDetailsFormKey.currentState
                                 .validate()) {
-                              //code for sign up
                               print('here');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DashboardPage()));
+                              showDialog(
+                                context: context,
+                                builder: (context) => CustomDialog(
+                                  content: Text(
+                                    'Password Updated Successfully',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  title: Text('MauGrocery'),
+                                  firstColor: Colors.green,
+                                  secondColor: Colors.white,
+                                  headerIcon: Icon(
+                                    Icons.check_circle_outline,
+                                    size: 120.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              );
                             }
-                            String password = passwordController.text;
-
-                            print("This is your new password: $password");
                           },
                           child: Text(
                             "Update & Save",

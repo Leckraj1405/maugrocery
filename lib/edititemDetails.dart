@@ -12,12 +12,13 @@ class EditItemDetailsPage extends StatefulWidget {
 }
 
 class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
-  TextEditingController passwordController = new TextEditingController();
+  TextEditingController itemnameController = new TextEditingController();
+  TextEditingController quantityController = new TextEditingController();
 
   String itemname;
   String quantity;
 
-  final edititemDetailsFormKey = GlobalKey<FormState>();
+  final edititemFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
             Center(
               child: SingleChildScrollView(
                 child: Form(
-                  key: edititemDetailsFormKey,
+                  key: edititemFormKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -56,6 +57,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         height: 50.0,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
+                          controller: itemnameController,
                           validator: (itemname) {
                             if (itemname.isEmpty) {
                               return "Please enter item name";
@@ -64,6 +66,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                           },
                           onChanged: (value) {
                             Vibration.vibrate();
+                            itemname = value;
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -90,6 +93,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         height: 50.0,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
+                          controller: quantityController,
                           validator: (quantity) {
                             if (quantity.isEmpty) {
                               return "Please enter quantity";
@@ -98,6 +102,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                           },
                           onChanged: (value) {
                             Vibration.vibrate();
+                            quantity = value;
                           },
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -120,36 +125,38 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AddItemPage()));
-                            showDialog(
-                              context: context,
-                              builder: (context) => CustomDialog(
-                                content: Text(
-                                  'Update Successful',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                                title: Text('MauGrocery'),
-                                firstColor: Colors.green,
-                                secondColor: Colors.white,
-                                headerIcon: Icon(
-                                  Icons.check_circle_outline,
-                                  size: 120.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            );
+                            String itemname = itemnameController.text;
+                            print("This is your new item name: $itemname");
+                            String quantity = quantityController.text;
+                            print("This is your new quantity: $quantity");
 
                             Vibration.vibrate();
-                            if (edititemDetailsFormKey.currentState
-                                .validate()) {
-                              //code for sign up
+                            if (edititemFormKey.currentState.validate()) {
                               print('here');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AddItemPage()));
+                              showDialog(
+                                context: context,
+                                builder: (context) => CustomDialog(
+                                  content: Text(
+                                    'Item Updated Successfully',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  title: Text('MauGrocery'),
+                                  firstColor: Colors.green,
+                                  secondColor: Colors.white,
+                                  headerIcon: Icon(
+                                    Icons.check_circle_outline,
+                                    size: 120.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              );
                             }
                           },
                           child: Text(

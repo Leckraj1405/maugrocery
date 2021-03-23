@@ -7,7 +7,6 @@ import 'package:maugrocery/dashboard.dart';
 import 'package:maugrocery/loading.dart';
 import 'package:vibration/vibration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'custom_dialog.dart';
 
 class SignUpPage extends StatefulWidget {

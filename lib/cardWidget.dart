@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
-
-import 'addItem.dart';
 import 'edititemDetails.dart';
 
 class CardWidget extends StatefulWidget {
