@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:maugrocery/addItem.dart';
 import 'package:vibration/vibration.dart';
 
+import 'edititemDetails.dart';
+
 class CardWidget extends StatefulWidget {
   final String id, listName, creationDate;
 

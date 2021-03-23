@@ -89,7 +89,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dashboard - Add List"),
+        title: Text("Dashboard - Grocery Lists"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(

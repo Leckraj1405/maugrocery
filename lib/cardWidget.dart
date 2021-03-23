@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vibration/vibration.dart';
 
+import 'addItem.dart';
+import 'edititemDetails.dart';
+
 class CardWidget extends StatefulWidget {
   final String id, itemName, notes, expiryDate;
   final int quantity;
@@ -64,6 +67,10 @@ class _CardWidgetState extends State<CardWidget> {
                       color: Colors.blueGrey[700],
                       child: TextButton(
                         onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditItemDetailsPage()));
                           Vibration.vibrate();
                         },
                         child: Row(
@@ -76,7 +83,7 @@ class _CardWidgetState extends State<CardWidget> {
                               width: 10.0,
                             ),
                             Text(
-                              "Edit",
+                              "View & Edit",
                               style: TextStyle(
                                   color: Colors.white, fontSize: 16.0),
                             ),
@@ -85,7 +92,7 @@ class _CardWidgetState extends State<CardWidget> {
                       ),
                     ),
                     SizedBox(
-                      width: 25.0,
+                      width: 30.0,
                     ),
                     Container(
                       color: Colors.blueGrey[700],
