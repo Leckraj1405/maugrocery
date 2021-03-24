@@ -17,7 +17,7 @@ dependencies:
   form_validator: ^0.1.7
   vibration: ^1.7.3
   sqflite: any
-  cloud_firestore: any
+  cloud_firestore: "^0.16.0+1"
   firebase_core: "^0.7.0"
   firebase_auth: "^0.20.1"
   flutter_spinkit: ^4.1.2

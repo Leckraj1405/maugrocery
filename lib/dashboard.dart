@@ -9,9 +9,16 @@ import 'package:vibration/vibration.dart';
 import 'custom_dialog.dart';
 import 'main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String id = 'DashboardPage';
+  // final String listname;
+  // final String datecreated;
+  //
+  // DashboardPage(this.listname, this.datecreated);
+
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
@@ -19,6 +26,8 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   TextEditingController listnameController = new TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -39,22 +48,6 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   List<Widget> cardList = new List();
-
-  // DateTime selectedDate = DateTime.now();
-  // _selectDate(BuildContext context) async {
-  //   final DateTime picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: selectedDate, // Refer step 1
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2050),
-  //   );
-  //   if (picked != null && picked != selectedDate)
-  //     setState(
-  //       () {
-  //         selectedDate = picked;
-  //       },
-  //     );
-  // }
 
   DateTime _date = new DateTime.now();
   String displayDate = "No date selected";
@@ -87,6 +80,19 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    // CollectionReference grocerylists =
+    //     FirebaseFirestore.instance.collection('grocerylists');
+    // Future<void> DashboardPage() {
+    //   // Call the user's CollectionReference to add a new user
+    //   return grocerylists
+    //       .add({
+    //         'listname': listname, // John Doe
+    //         'datecreated': datecreated, // Stokes and Sons
+    //       })
+    //       .then((value) => print("User Added"))
+    //       .catchError((error) => print("Failed to add user: $error"));
+    // }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Dashboard - Grocery Lists"),
