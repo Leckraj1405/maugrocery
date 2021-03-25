@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maugrocery/cardWidget.dart';
 import 'package:maugrocery/common.dart';
@@ -69,8 +70,20 @@ class _AddItemPageState extends State<AddItemPage> {
     }
   }
 
+  final FlutterTts flutterTts = FlutterTts();
+
   @override
   Widget build(BuildContext context) {
+    Future _speak() async {
+      print(await flutterTts.getLanguages);
+      await flutterTts.setLanguage("en-GB");
+      await flutterTts.setPitch(1);
+      await flutterTts.setVolume(100.00);
+      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.speak(
+          "Enter item name, quantity, date and notes if needed, and press add item");
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Add and View Items"),
@@ -304,11 +317,12 @@ class _AddItemPageState extends State<AddItemPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 32),
+              padding: const EdgeInsets.only(left: 1, bottom: 1),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: TextButton(
                   onPressed: () {
+                    _speak();
                     Vibration.vibrate();
                     print("MIC ON");
                   },

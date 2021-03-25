@@ -179,7 +179,7 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 32),
+              padding: const EdgeInsets.only(left: 1, bottom: 1),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: TextButton(

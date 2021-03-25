@@ -5,6 +5,7 @@ import 'package:maugrocery/common.dart';
 import 'package:maugrocery/signIn.dart';
 import 'package:maugrocery/signUp.dart';
 import 'package:vibration/vibration.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,11 +34,22 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
+  final FlutterTts flutterTts = FlutterTts();
   @override
   Widget build(BuildContext context) {
+    Future _speak() async {
+      print(await flutterTts.getLanguages);
+      await flutterTts.setLanguage("en-GB");
+      await flutterTts.setPitch(1);
+      await flutterTts.setVolume(100.00);
+      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.speak(
+          "Welcome to MauGrocery, to login, press the upper section of the screen, and to register, press the lower area of the screen");
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("MauGrocery-Welcome"),
+        title: Text("MauGrocery - Welcome"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(
@@ -111,11 +123,12 @@ class _WelcomePageState extends State<WelcomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 32),
+              padding: const EdgeInsets.only(left: 1, bottom: 1),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: TextButton(
                   onPressed: () {
+                    _speak();
                     Vibration.vibrate();
                     print("MIC ON");
                   },

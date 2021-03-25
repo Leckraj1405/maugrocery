@@ -5,6 +5,7 @@ import 'package:maugrocery/addItem.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/custom_dialog.dart';
 import 'package:vibration/vibration.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class EditItemDetailsPage extends StatefulWidget {
   @override
@@ -19,8 +20,20 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
   String quantity;
 
   final edititemFormKey = GlobalKey<FormState>();
+  final FlutterTts flutterTts = FlutterTts();
+
   @override
   Widget build(BuildContext context) {
+    Future _speak() async {
+      print(await flutterTts.getLanguages);
+      await flutterTts.setLanguage("en-GB");
+      await flutterTts.setPitch(1);
+      await flutterTts.setVolume(100.00);
+      await flutterTts.setSpeechRate(0.9);
+      await flutterTts
+          .speak("Enter item name and quantity. Press update and save button.");
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("View & Edit Item Details"),
@@ -174,11 +187,12 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 32),
+              padding: const EdgeInsets.only(left: 1, bottom: 1),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: TextButton(
                   onPressed: () {
+                    _speak();
                     HapticFeedback.mediumImpact();
                     print("MIC ON");
                   },

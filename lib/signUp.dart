@@ -8,6 +8,7 @@ import 'package:maugrocery/loading.dart';
 import 'package:vibration/vibration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'custom_dialog.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -98,8 +99,20 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
+  final FlutterTts flutterTts = FlutterTts();
+
   @override
   Widget build(BuildContext context) {
+    Future _speak() async {
+      print(await flutterTts.getLanguages);
+      await flutterTts.setLanguage("en-GB");
+      await flutterTts.setPitch(1);
+      await flutterTts.setVolume(100.00);
+      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.speak(
+          "Enter your email and password and press register to create your account");
+    }
+
     return loading
         ? Loading()
         : Scaffold(
@@ -283,11 +296,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, bottom: 32),
+                    padding: const EdgeInsets.only(left: 1, bottom: 1),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: TextButton(
                         onPressed: () {
+                          _speak();
                           Vibration.vibrate();
                           print("MIC ON");
                         },

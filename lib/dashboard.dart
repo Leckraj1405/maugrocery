@@ -10,11 +10,12 @@ import 'custom_dialog.dart';
 import 'main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String id = 'DashboardPage';
-  // final String listname;
+
   // final String datecreated;
   //
   // DashboardPage(this.listname, this.datecreated);
@@ -26,8 +27,8 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   TextEditingController listnameController = new TextEditingController();
   FirebaseAuth _auth = FirebaseAuth.instance;
-
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String listname;
 
   @override
   void initState() {
@@ -78,20 +79,31 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
+  final FlutterTts flutterTts = FlutterTts();
+
   @override
   Widget build(BuildContext context) {
     // CollectionReference grocerylists =
     //     FirebaseFirestore.instance.collection('grocerylists');
     // Future<void> DashboardPage() {
-    //   // Call the user's CollectionReference to add a new user
     //   return grocerylists
     //       .add({
-    //         'listname': listname, // John Doe
-    //         'datecreated': datecreated, // Stokes and Sons
+    //         'listname': listname,
+    //         'datecreated': datecreated,
     //       })
-    //       .then((value) => print("User Added"))
-    //       .catchError((error) => print("Failed to add user: $error"));
+    //       .then((value) => print("List Added"))
+    //       .catchError((error) => print("Failed to add list: $error"));
     // }
+
+    Future _speak() async {
+      print(await flutterTts.getLanguages);
+      await flutterTts.setLanguage("en-GB");
+      await flutterTts.setPitch(1);
+      await flutterTts.setVolume(100.00);
+      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.speak(
+          "Enter list name and date to create list, and find available user details, sign out options below");
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -130,6 +142,9 @@ class _DashboardPageState extends State<DashboardPage> {
                       height: 50.0,
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: TextField(
+                        onChanged: (value) {
+                          listname = value;
+                        },
                         controller: listnameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -309,11 +324,12 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 32),
+              padding: const EdgeInsets.only(left: 1, bottom: 1),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: TextButton(
                   onPressed: () {
+                    _speak();
                     Vibration.vibrate();
                     print("MIC ON");
                   },

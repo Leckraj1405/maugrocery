@@ -8,6 +8,7 @@ import 'package:maugrocery/dashboard.dart';
 import 'package:vibration/vibration.dart';
 import 'custom_dialog.dart';
 import 'loading.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -130,8 +131,19 @@ class _SignInPageState extends State<SignInPage> {
     super.initState();
   }
 
+  final FlutterTts flutterTts = FlutterTts();
+
   @override
   Widget build(BuildContext context) {
+    Future _speak() async {
+      print(await flutterTts.getLanguages);
+      await flutterTts.setLanguage("en-GB");
+      await flutterTts.setPitch(1);
+      await flutterTts.setVolume(100.00);
+      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.speak("Enter your email and password to sign in");
+    }
+
     return loading
         ? Loading()
         : Scaffold(
@@ -279,11 +291,12 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20, bottom: 32),
+                    padding: const EdgeInsets.only(left: 1, bottom: 1),
                     child: Align(
                       alignment: Alignment.bottomLeft,
                       child: TextButton(
                         onPressed: () {
+                          _speak();
                           Vibration.vibrate();
                           print("MIC ON");
                         },
