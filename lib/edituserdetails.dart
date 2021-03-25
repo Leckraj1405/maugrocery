@@ -111,6 +111,7 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
                           },
                           obscureText: true,
                           decoration: InputDecoration(
+                            labelText: 'Confirm Password',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),

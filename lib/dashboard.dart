@@ -147,6 +147,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         },
                         controller: listnameController,
                         decoration: InputDecoration(
+                          labelText: 'List Name',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),

@@ -86,7 +86,7 @@ class _AddItemPageState extends State<AddItemPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add and View Items"),
+        title: Text("View and Add Items"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(
@@ -135,6 +135,7 @@ class _AddItemPageState extends State<AddItemPage> {
                           },
                           controller: itemnameController,
                           decoration: InputDecoration(
+                            labelText: 'Item Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -172,6 +173,7 @@ class _AddItemPageState extends State<AddItemPage> {
                           },
                           controller: quantityController,
                           decoration: InputDecoration(
+                            labelText: 'Quantity',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -208,6 +210,7 @@ class _AddItemPageState extends State<AddItemPage> {
                           },
                           controller: notesController,
                           decoration: InputDecoration(
+                            labelText: 'Notes',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),

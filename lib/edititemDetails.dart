@@ -82,6 +82,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             itemname = value;
                           },
                           decoration: InputDecoration(
+                            labelText: 'New Item Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -118,6 +119,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             quantity = value;
                           },
                           decoration: InputDecoration(
+                            labelText: 'New Quantity',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),

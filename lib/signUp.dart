@@ -169,6 +169,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 },
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  labelText: 'Email',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
@@ -245,6 +246,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 },
                                 obscureText: true,
                                 decoration: InputDecoration(
+                                  labelText: 'Confirm Password',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),

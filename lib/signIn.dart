@@ -195,6 +195,7 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  labelText: 'Email',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
@@ -234,6 +235,7 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                                 obscureText: true,
                                 decoration: InputDecoration(
+                                  labelText: 'Password',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
