@@ -36,6 +36,10 @@ class _SignUpPageState extends State<SignUpPage> {
         password: password,
       );
 
+      // //create a new document for the user with the uid
+      // await DatabaseService(uid: userCredential.uid)
+      //     .updateUserData('Winners', '2021-12-12');
+
       Navigator.push(
         context,
         MaterialPageRoute(

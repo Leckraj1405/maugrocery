@@ -16,16 +16,16 @@ import 'package:firebase_core/firebase_core.dart';
 class DashboardPage extends StatefulWidget {
   static const String id = 'DashboardPage';
 
-  // final String datecreated;
-  //
-  // DashboardPage(this.listname, this.datecreated);
-
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
 
 class _DashboardPageState extends State<DashboardPage> {
   TextEditingController listnameController = new TextEditingController();
+
+  CollectionReference ref =
+      FirebaseFirestore.instance.collection('grocerylists');
+
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   String listname;
@@ -201,12 +201,15 @@ class _DashboardPageState extends State<DashboardPage> {
                           var uuid = Uuid();
                           String id = uuid.v4();
                           print("id: $id");
-
                           print("List Name: $listname");
                           print("Date Created: $displayDate");
 
                           if (!listnameController.text.isEmpty) {
                             setState(() {
+                              ref.add({
+                                'listname': listnameController.text,
+                                'datecreated': displayDate,
+                              });
                               Vibration.vibrate();
                               cardList.add(CardWidget(
                                 id: id,
