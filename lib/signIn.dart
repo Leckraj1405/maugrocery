@@ -39,26 +39,6 @@ class _SignInPageState extends State<SignInPage> {
           builder: (context) => DashboardPage(),
         ),
       );
-      // showDialog(
-      //   context: context,
-      //   builder: (context) => CustomDialog(
-      //     content: Text(
-      //       'Sign In Successful',
-      //       style: TextStyle(
-      //         fontWeight: FontWeight.w900,
-      //         fontSize: 20.0,
-      //       ),
-      //     ),
-      //     title: Text('MauGrocery'),
-      //     firstColor: Colors.green,
-      //     secondColor: Colors.white,
-      //     headerIcon: Icon(
-      //       Icons.check_circle_outline,
-      //       size: 120.0,
-      //       color: Colors.white,
-      //     ),
-      //   ),
-      // );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setState(() {
@@ -267,16 +247,6 @@ class _SignInPageState extends State<SignInPage> {
                                         email: emailController.text,
                                         password: passwordController.text);
                                   }
-
-                                  // try {
-                                  //   final user = await _auth.signInWithEmailAndPassword(
-                                  //       email: email, password: password);
-                                  //   if (user != null) {
-                                  //     Navigator.pushNamed(context, DashboardPage.id);
-                                  //   }
-                                  // } catch (e) {
-                                  //   print(e);
-                                  // }
                                 },
                                 child: Text(
                                   "Sign in",

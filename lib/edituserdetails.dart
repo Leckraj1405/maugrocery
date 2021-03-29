@@ -19,6 +19,7 @@ class _EditUserDetailsPageState extends State<EditUserDetailsPage> {
   String confirmpassword;
 
   final edituserDetailsFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

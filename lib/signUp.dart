@@ -22,7 +22,6 @@ class _SignUpPageState extends State<SignUpPage> {
   bool loading = false;
 
   final _auth = FirebaseAuth.instance;
-
   final signUpFormKey = GlobalKey<FormState>();
 
   TextEditingController emailController = new TextEditingController();
@@ -35,10 +34,6 @@ class _SignUpPageState extends State<SignUpPage> {
         email: email,
         password: password,
       );
-
-      // //create a new document for the user with the uid
-      // await DatabaseService(uid: userCredential.uid)
-      //     .updateUserData('Winners', '2021-12-12');
 
       Navigator.push(
         context,
@@ -157,12 +152,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: TextFormField(
                                 controller: emailController,
-                                // validator: (email) {
-                                //   if (email.isEmpty) {
-                                //     return "Email cannot be empty";
-                                //   }
-                                //   return null;
-                                // },
                                 validator: ValidationBuilder()
                                     .email()
                                     .maxLength(50)

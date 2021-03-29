@@ -11,7 +11,6 @@ import 'main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String id = 'DashboardPage';
@@ -22,13 +21,14 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   TextEditingController listnameController = new TextEditingController();
+  String listname;
 
+  //Firebase Firestore instance
   CollectionReference ref =
       FirebaseFirestore.instance.collection('grocerylists');
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  String listname;
 
   @override
   void initState() {
@@ -36,6 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
     getCurrentUser();
   }
 
+  //get currently signed in user
   void getCurrentUser() async {
     try {
       final user = await _auth.currentUser;

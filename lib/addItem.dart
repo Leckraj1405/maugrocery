@@ -18,6 +18,7 @@ class _AddItemPageState extends State<AddItemPage> {
   String itemname;
   String quantity;
   String notes;
+
   TextEditingController itemnameController = new TextEditingController();
   TextEditingController quantityController = new TextEditingController();
   TextEditingController notesController = new TextEditingController();
@@ -25,22 +26,7 @@ class _AddItemPageState extends State<AddItemPage> {
 
   List<Widget> cardList = new List();
 
-  // DateTime selectedDate = DateTime.now();
-  // _selectDate(BuildContext context) async {
-  //   final DateTime picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: selectedDate, // Refer step 1
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2050),
-  //   );
-  //   if (picked != null && picked != selectedDate)
-  //     setState(
-  //       () {
-  //         selectedDate = picked;
-  //       },
-  //     );
-  // }
-
+  //date to string
   DateTime _date = new DateTime.now();
   String displayDate = "No date selected";
   void _selectDate() async {
@@ -70,6 +56,7 @@ class _AddItemPageState extends State<AddItemPage> {
     }
   }
 
+  //speech synthesis
   final FlutterTts flutterTts = FlutterTts();
 
   @override
