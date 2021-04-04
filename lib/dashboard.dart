@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:maugrocery/edituserdetails.dart';
 import 'package:maugrocery/listcardWidget.dart';
 import 'package:maugrocery/common.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,22 +20,25 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   TextEditingController listnameController = new TextEditingController();
-  String listname;
-
-  //Firebase Firestore instance
-  CollectionReference ref =
-      FirebaseFirestore.instance.collection('grocerylists');
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  String listname;
+
+  _getCurrentUser() {
+    if (_auth.currentUser != null) {
+      print(' uid : ${_auth.currentUser.uid}');
+      print('email : ${_auth.currentUser.email}');
+    }
+  }
 
   @override
   void initState() {
+    _getCurrentUser();
     super.initState();
     getCurrentUser();
   }
 
-  //get currently signed in user
   void getCurrentUser() async {
     try {
       final user = await _auth.currentUser;
@@ -84,30 +86,18 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    // CollectionReference grocerylists =
-    //     FirebaseFirestore.instance.collection('grocerylists');
-    // Future<void> DashboardPage() {
-    //   return grocerylists
-    //       .add({
-    //         'listname': listname,
-    //         'datecreated': datecreated,
-    //       })
-    //       .then((value) => print("List Added"))
-    //       .catchError((error) => print("Failed to add list: $error"));
-    // }
-
     Future _speak() async {
-      print(await flutterTts.getLanguages);
       await flutterTts.setLanguage("en-GB");
       await flutterTts.setPitch(1);
-      await flutterTts.setVolume(100.00);
-      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.setVolume(1);
+      await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
           "Enter list name and date to create list, and find available user details, sign out options below");
     }
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text("Dashboard - Grocery Lists"),
         backgroundColor: Colors.blueGrey[700],
       ),
@@ -123,11 +113,12 @@ class _DashboardPageState extends State<DashboardPage> {
                     Container(
                       child: Image.asset('images/transparentBackground.png'),
                     ),
-                    Column(
-                      children: cardList,
-                    ),
+                    // Column(
+                    //   children: cardList,
+                    // )
+                    CardWidget(),
                     SizedBox(
-                      height: 50.0,
+                      height: 25.0,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.6,
@@ -140,7 +131,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       height: 15.0,
                     ),
                     Container(
-                      height: 50.0,
+                      height: 100.0,
                       width: MediaQuery.of(context).size.width * 0.6,
                       child: TextField(
                         onChanged: (value) {
@@ -156,7 +147,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                     ),
                     SizedBox(
-                      height: 35.0,
+                      height: 5.0,
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.6,
@@ -206,68 +197,23 @@ class _DashboardPageState extends State<DashboardPage> {
                           print("Date Created: $displayDate");
 
                           if (!listnameController.text.isEmpty) {
-                            setState(() {
-                              ref.add({
-                                'listname': listnameController.text,
-                                'datecreated': displayDate,
-                              });
-                              Vibration.vibrate();
-                              cardList.add(CardWidget(
-                                id: id,
-                                listName: listname,
-                                creationDate: displayDate,
-                              ));
+                            FirebaseAuth _auth = FirebaseAuth.instance;
+                            final uid = _auth.currentUser.uid;
+                            FirebaseFirestore.instance
+                                .collection("users")
+                                .doc(uid)
+                                .update({
+                              "grocerylist": FieldValue.arrayUnion([
+                                {
+                                  "listname": "$listname",
+                                  "datecreated": "$displayDate"
+                                }
+                              ])
                             });
                           }
-                        }
-
-                        //add the data to database
-
-                        /*
-                            retrieve list from database
-                            put into array
-                            for loop in array
-                            eg. for(int i = 0; i < array.length; i++)
-                            {
-                            cardList.add(CardWidget(
-                              itemName: array[i].itemname,
-                              notes: array[i].notes,
-                              expiryDate: array[i].displayDate,
-                              quantity: array[i].quantity,
-                            ));
-                            }
-                            */
-                        ,
-                        child: Text(
-                          "Add List",
-                          style: CustomTextStyles.buttonText,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50.0,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFC6011),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          Vibration.vibrate();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => EditUserDetailsPage(),
-                            ),
-                          );
                         },
                         child: Text(
-                          "Edit User Account",
+                          "Add List",
                           style: CustomTextStyles.buttonText,
                         ),
                       ),
@@ -336,7 +282,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   onPressed: () {
                     _speak();
                     Vibration.vibrate();
-                    print("MIC ON");
+                    print("voice synthesis running");
                   },
                   child: Container(
                     decoration: BoxDecoration(

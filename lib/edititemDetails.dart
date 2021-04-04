@@ -25,11 +25,10 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
   @override
   Widget build(BuildContext context) {
     Future _speak() async {
-      print(await flutterTts.getLanguages);
       await flutterTts.setLanguage("en-GB");
       await flutterTts.setPitch(1);
-      await flutterTts.setVolume(100.00);
-      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.setVolume(1);
+      await flutterTts.setSpeechRate(0.8);
       await flutterTts
           .speak("Enter item name and quantity. Press update and save button.");
     }
@@ -196,7 +195,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                   onPressed: () {
                     _speak();
                     HapticFeedback.mediumImpact();
-                    print("MIC ON");
+                    print("voice synthesis running");
                   },
                   child: Container(
                     decoration: BoxDecoration(

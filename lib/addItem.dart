@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -18,6 +19,11 @@ class _AddItemPageState extends State<AddItemPage> {
   String itemname;
   String quantity;
   String notes;
+
+  //Firestore instance
+  CollectionReference ref =
+      FirebaseFirestore.instance.collection('itemdetails');
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   TextEditingController itemnameController = new TextEditingController();
   TextEditingController quantityController = new TextEditingController();
@@ -62,11 +68,10 @@ class _AddItemPageState extends State<AddItemPage> {
   @override
   Widget build(BuildContext context) {
     Future _speak() async {
-      print(await flutterTts.getLanguages);
       await flutterTts.setLanguage("en-GB");
       await flutterTts.setPitch(1);
-      await flutterTts.setVolume(100.00);
-      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.setVolume(1);
+      await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
           "Enter item name, quantity, date and notes if needed, and press add item");
     }
@@ -107,7 +112,7 @@ class _AddItemPageState extends State<AddItemPage> {
                         height: 15.0,
                       ),
                       Container(
-                        height: 50.0,
+                        height: 100.0,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
                           validator: (itemname) {
@@ -130,7 +135,7 @@ class _AddItemPageState extends State<AddItemPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 35.0,
+                        height: 5.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -143,9 +148,10 @@ class _AddItemPageState extends State<AddItemPage> {
                         height: 15.0,
                       ),
                       Container(
-                        height: 50.0,
+                        height: 100.0,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
+                          maxLength: 3,
                           validator: (quantity) {
                             if (quantity.isEmpty) {
                               return "Quantity cannot be empty";
@@ -169,7 +175,7 @@ class _AddItemPageState extends State<AddItemPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 35.0,
+                        height: 5.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -182,7 +188,7 @@ class _AddItemPageState extends State<AddItemPage> {
                         height: 15.0,
                       ),
                       Container(
-                        height: 50.0,
+                        height: 100.0,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
                           validator: (notes) {
@@ -205,7 +211,7 @@ class _AddItemPageState extends State<AddItemPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 35.0,
+                        height: 5.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -257,7 +263,6 @@ class _AddItemPageState extends State<AddItemPage> {
                             var uuid = Uuid();
                             String id = uuid.v4();
                             print("id: $id");
-
                             print("Item Name: $itemname");
                             print("Quantity: $quantity");
                             print("Notes: $notes");
@@ -265,6 +270,12 @@ class _AddItemPageState extends State<AddItemPage> {
 
                             if (!itemnameController.text.isEmpty) {
                               setState(() {
+                                ref.add({
+                                  'itemname': itemnameController.text,
+                                  'quantity': quantityController.text,
+                                  'datepicked': displayDate,
+                                  'notes': notesController.text,
+                                });
                                 cardList.add(CardWidget(
                                   id: id,
                                   itemName: itemname,
@@ -314,7 +325,7 @@ class _AddItemPageState extends State<AddItemPage> {
                   onPressed: () {
                     _speak();
                     Vibration.vibrate();
-                    print("MIC ON");
+                    print("voice synthesis running");
                   },
                   child: Container(
                     decoration: BoxDecoration(

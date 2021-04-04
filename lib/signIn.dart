@@ -116,11 +116,10 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     Future _speak() async {
-      print(await flutterTts.getLanguages);
       await flutterTts.setLanguage("en-GB");
       await flutterTts.setPitch(1);
-      await flutterTts.setVolume(100.00);
-      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.setVolume(1);
+      await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak("Enter your email and password to sign in");
     }
 
@@ -270,7 +269,7 @@ class _SignInPageState extends State<SignInPage> {
                         onPressed: () {
                           _speak();
                           Vibration.vibrate();
-                          print("MIC ON");
+                          print("voice synthesis running");
                         },
                         child: Container(
                           decoration: BoxDecoration(

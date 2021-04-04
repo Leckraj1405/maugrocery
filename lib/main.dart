@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maugrocery/common.dart';
+import 'package:maugrocery/help.dart';
 import 'package:maugrocery/signIn.dart';
 import 'package:maugrocery/signUp.dart';
 import 'package:vibration/vibration.dart';
@@ -38,13 +39,13 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     Future _speak() async {
-      print(await flutterTts.getLanguages);
+      //print(await flutterTts.getLanguages);
       await flutterTts.setLanguage("en-GB");
       await flutterTts.setPitch(1);
-      await flutterTts.setVolume(100.00);
-      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.setVolume(1);
+      await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
-          "Welcome to MauGrocery, to login, press the upper section of the screen, and to register, press the lower area of the screen");
+          "Welcome to MauGrocery, to login, press the upper section of the screen, and to register, press the lower area of the screen. Tap on the bottom right of your screen to access the information page.");
     }
 
     return Scaffold(
@@ -68,8 +69,8 @@ class _WelcomePageState extends State<WelcomePage> {
                       height: 50.0,
                     ),
                     Container(
-                      width: 250.0,
-                      height: 125.0,
+                      width: 300.0,
+                      height: 150.0,
                       decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
                           borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -88,11 +89,11 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                     ),
                     SizedBox(
-                      height: 50.0,
+                      height: 70.0,
                     ),
                     Container(
-                      width: 250.0,
-                      height: 125.0,
+                      width: 300.0,
+                      height: 150.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFFC6011),
                         borderRadius: BorderRadius.all(
@@ -130,7 +131,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   onPressed: () {
                     _speak();
                     Vibration.vibrate();
-                    print("MIC ON");
+                    print("voice synthesis running");
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -144,6 +145,34 @@ class _WelcomePageState extends State<WelcomePage> {
                     //color: Colors.black,
                     child: Center(
                       child: Icon(FontAwesomeIcons.microphone),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 1, bottom: 1),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HelpPage()));
+                    Vibration.vibrate();
+                    print("redirecting to help page");
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFC6011),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                    width: 75.0,
+                    height: 75.0,
+                    //color: Colors.black,
+                    child: Center(
+                      child: Icon(FontAwesomeIcons.infoCircle),
                     ),
                   ),
                 ),

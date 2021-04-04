@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,6 +35,18 @@ class _SignUpPageState extends State<SignUpPage> {
         email: email,
         password: password,
       );
+
+      FirebaseAuth _auth = FirebaseAuth.instance;
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_auth.currentUser.uid)
+          .set({
+        "email": email,
+        "grocerylist": [
+          {"listname": "", "datecreated": ""}
+        ]
+      });
 
       Navigator.push(
         context,
@@ -103,11 +116,10 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     Future _speak() async {
-      print(await flutterTts.getLanguages);
       await flutterTts.setLanguage("en-GB");
       await flutterTts.setPitch(1);
-      await flutterTts.setVolume(100.00);
-      await flutterTts.setSpeechRate(0.9);
+      await flutterTts.setVolume(1);
+      await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
           "Enter your email and password and press register to create your account");
     }
@@ -298,7 +310,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onPressed: () {
                           _speak();
                           Vibration.vibrate();
-                          print("MIC ON");
+                          print("voice synthesis running");
                         },
                         child: Container(
                           decoration: BoxDecoration(
