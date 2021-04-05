@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:maugrocery/edititemDetails.dart';
 import 'package:vibration/vibration.dart';
 
-import 'addItem.dart';
-
 class CardWidget extends StatefulWidget {
   @override
   _CardWidgetState createState() => _CardWidgetState();

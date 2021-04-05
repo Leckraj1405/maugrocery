@@ -150,7 +150,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 50.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: Text(
                                 "Email",
                                 style: CustomTextStyles.fieldLabelStyle,
@@ -161,7 +161,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             Container(
                               height: 50.0,
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: TextFormField(
                                 controller: emailController,
                                 validator: ValidationBuilder()
@@ -186,7 +186,7 @@ class _SignInPageState extends State<SignInPage> {
                               height: 35.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: Text(
                                 "Password",
                                 style: CustomTextStyles.fieldLabelStyle,
@@ -197,7 +197,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             Container(
                               height: 50.0,
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: TextFormField(
                                 controller: passwordController,
                                 validator: (password) {
@@ -225,8 +225,8 @@ class _SignInPageState extends State<SignInPage> {
                               height: 35.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: 100.0,
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              height: 125.0,
                               decoration: BoxDecoration(
                                 color: Color(0xFFFC6011),
                                 borderRadius: BorderRadius.all(
@@ -237,7 +237,6 @@ class _SignInPageState extends State<SignInPage> {
                                 onPressed: () async {
                                   Vibration.vibrate();
                                   if (signInFormKey.currentState.validate()) {
-                                    //code for sign in
                                     setState(() {
                                       loading = true;
                                     });

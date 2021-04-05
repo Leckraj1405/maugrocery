@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:maugrocery/common.dart';
 import 'package:maugrocery/help.dart';
 import 'package:maugrocery/signIn.dart';
 import 'package:maugrocery/signUp.dart';
@@ -84,7 +83,8 @@ class _WelcomePageState extends State<WelcomePage> {
                         },
                         child: Text(
                           "Sign In",
-                          style: CustomTextStyles.buttonText,
+                          style: TextStyle(color: Colors.black, fontSize: 35.0),
+                          //style: CustomTextStyles.buttonText,
                         ),
                       ),
                     ),
@@ -112,7 +112,8 @@ class _WelcomePageState extends State<WelcomePage> {
                         },
                         child: Text(
                           "Register",
-                          style: CustomTextStyles.buttonText,
+                          style: TextStyle(color: Colors.black, fontSize: 35.0),
+                          // style: CustomTextStyles.buttonText,
                         ),
                       ),
                     ),

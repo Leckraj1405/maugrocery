@@ -37,14 +37,19 @@ class _SignUpPageState extends State<SignUpPage> {
       );
 
       FirebaseAuth _auth = FirebaseAuth.instance;
-
       await FirebaseFirestore.instance
           .collection('users')
           .doc(_auth.currentUser.uid)
           .set({
         "email": email,
         "grocerylist": [
-          {"listname": "", "datecreated": ""}
+          {
+            "listname": "",
+            "datecreated": "",
+            "itemname": "",
+            "quantity": "",
+            "notes": ""
+          }
         ]
       });
 
@@ -150,7 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 50.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: Text(
                                 "Email Address",
                                 style: CustomTextStyles.fieldLabelStyle,
@@ -161,7 +166,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             Container(
                               height: 50.0,
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: TextFormField(
                                 controller: emailController,
                                 validator: ValidationBuilder()
@@ -185,7 +190,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 35.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: Text(
                                 "Password",
                                 style: CustomTextStyles.fieldLabelStyle,
@@ -196,7 +201,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             Container(
                               height: 50.0,
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: TextFormField(
                                 controller: passwordController,
                                 validator: (password) {
@@ -224,7 +229,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 35.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: Text(
                                 "Confirm Password",
                                 style: CustomTextStyles.fieldLabelStyle,
@@ -235,7 +240,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                             Container(
                               height: 50.0,
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               child: TextFormField(
                                 validator: (confirmpassword) {
                                   if (confirmpassword.isEmpty) {
@@ -262,7 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 35.0,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.6,
+                              width: MediaQuery.of(context).size.width * 0.7,
                               height: 100.0,
                               decoration: BoxDecoration(
                                 color: Color(0xFFFC6011),

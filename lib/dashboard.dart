@@ -100,7 +100,7 @@ class _DashboardPageState extends State<DashboardPage> {
       await flutterTts.setVolume(1);
       await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
-          "Enter list name and date to create list, and find available user details, sign out options below");
+          "Enter your item details in the text field provided, such as the supermarket name, item name, its quantity, the purchase date and add some notes as well. Hit add item to add the item to your list, and find the sign out options below.");
     }
 
     return Scaffold(
@@ -128,7 +128,20 @@ class _DashboardPageState extends State<DashboardPage> {
                       // )
                       CardWidget(),
                       SizedBox(
-                        height: 25.0,
+                        height: 50.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        alignment: AlignmentDirectional.center,
+                        child: Text(
+                          "Enter Grocery Details",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 35.0,
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline),
+                          // style: CustomTextStyles.fieldLabelStyle,
+                        ),
                       ),
                       // Container(
                       //   width: MediaQuery.of(context).size.width * 0.6,
@@ -138,7 +151,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       //   ),
                       // ),
                       SizedBox(
-                        height: 15.0,
+                        height: 40.0,
                       ),
                       Container(
                         height: 100.0,
@@ -299,7 +312,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         "Selected Date: $displayDate",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 25.0,
+                          fontSize: 20.0,
                         ),
                       ),
                       SizedBox(
@@ -317,38 +330,37 @@ class _DashboardPageState extends State<DashboardPage> {
                         child: TextButton(
                           onPressed: () {
                             Vibration.vibrate();
-                            if (!dashboardFormKey.currentState.validate()) {
-                              String listname = listnameController.text;
-                              String itemname = itemnameController.text;
-                              String quantity = quantityController.text;
-                              String notes = notesController.text;
-                              var uuid = Uuid();
-                              String id = uuid.v4();
-                              print("id: $id");
-                              print("List Name: $listname");
-                              print("Item Name: $itemname");
-                              print("Quantity: $quantity");
-                              print("Notes: $notes");
-                              print("Date to Purchase: $displayDate");
+                            if (!dashboardFormKey.currentState.validate()) {}
+                            String listname = listnameController.text;
+                            String itemname = itemnameController.text;
+                            String quantity = quantityController.text;
+                            String notes = notesController.text;
+                            var uuid = Uuid();
+                            String id = uuid.v4();
+                            print("id: $id");
+                            print("List Name: $listname");
+                            print("Item Name: $itemname");
+                            print("Quantity: $quantity");
+                            print("Notes: $notes");
+                            print("Date to Purchase: $displayDate");
 
-                              if (!listnameController.text.isEmpty) {
-                                FirebaseAuth _auth = FirebaseAuth.instance;
-                                final uid = _auth.currentUser.uid;
-                                FirebaseFirestore.instance
-                                    .collection("users")
-                                    .doc(uid)
-                                    .update({
-                                  "grocerylist": FieldValue.arrayUnion([
-                                    {
-                                      "listname": "$listname",
-                                      "datecreated": "$displayDate",
-                                      "itemname": "$itemname",
-                                      "quantity": "$quantity",
-                                      "notes": "$notes"
-                                    }
-                                  ])
-                                });
-                              }
+                            if (!listnameController.text.isEmpty) {
+                              FirebaseAuth _auth = FirebaseAuth.instance;
+                              final uid = _auth.currentUser.uid;
+                              FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(uid)
+                                  .update({
+                                "grocerylist": FieldValue.arrayUnion([
+                                  {
+                                    "listname": "$listname",
+                                    "datecreated": "$displayDate",
+                                    "itemname": "$itemname",
+                                    "quantity": "$quantity",
+                                    "notes": "$notes"
+                                  }
+                                ])
+                              });
                             }
                           },
                           child: Text(
