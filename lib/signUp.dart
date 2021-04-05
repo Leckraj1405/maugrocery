@@ -283,10 +283,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                       password: passwordController.text,
                                     );
                                   }
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => DashboardPage()));
                                 },
                                 child: Text(
                                   "Register",

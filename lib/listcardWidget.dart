@@ -1,34 +1,6 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter/material.dart';
-// import 'package:maugrocery/addItem.dart';
-// import 'package:vibration/vibration.dart';
-//
-// class CardWidget extends StatefulWidget {
-//   // final String id, listName, creationDate;
-//   //
-//   // const CardWidget({this.id, this.listName, this.creationDate});
-//
-//   @override
-//   _CardWidgetState createState() => _CardWidgetState();
-// }
-//
-// class _CardWidgetState extends State<CardWidget> {
-//   CollectionReference grocerylists =
-//       FirebaseFirestore.instance.collection('grocerylists');
-//
-//   final ref = FirebaseFirestore.instance.collection('grocerylists');
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(body: Text('test'));
-//   }
-// }
-
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vibration/vibration.dart';
 
 import 'addItem.dart';
@@ -70,7 +42,8 @@ class _CardWidgetState extends State<CardWidget> {
           );
         }
         return Container(
-          height: 300,
+          height: 350,
+          width: 370,
           child: ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (context, index) {
@@ -113,9 +86,6 @@ class _CardWidgetState extends State<CardWidget> {
                                   //     child: IconButton(
                                   //   icon: Icon(Icons.delete),
                                   // ))
-                                  SizedBox(
-                                    width: 30.0,
-                                  ),
                                   Container(
                                     color: Colors.blueGrey[700],
                                     child: TextButton(
