@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:maugrocery/listcardWidget.dart';
 import 'package:maugrocery/common.dart';
@@ -26,6 +27,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final dashboardFormKey = GlobalKey<FormState>();
   String listname;
   String itemname;
   String quantity;
@@ -112,267 +114,303 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             Center(
               child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: Image.asset('images/transparentBackground.png'),
-                    ),
-                    // Column(
-                    //   children: cardList,
-                    // )
-                    CardWidget(),
-                    SizedBox(
-                      height: 25.0,
-                    ),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width * 0.6,
-                    //   child: Text(
-                    //     "List Name",
-                    //     style: CustomTextStyles.fieldLabelStyle,
-                    //   ),
-                    // ),
-                    SizedBox(
-                      height: 15.0,
-                    ),
-                    Container(
-                      height: 100.0,
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: TextField(
-                        onChanged: (value) {
-                          listname = value;
-                        },
-                        controller: listnameController,
-                        decoration: InputDecoration(
-                          labelText: 'List Name',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
+                child: Form(
+                  key: dashboardFormKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Image.asset('images/transparentBackground.png'),
                       ),
-                    ),
-                    SizedBox(
-                      height: 1.0,
-                    ),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width * 0.6,
-                    //   child: Text(
-                    //     "Item Name",
-                    //     style: CustomTextStyles.fieldLabelStyle,
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15.0,
-                    // ),
-                    Container(
-                      height: 100.0,
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: TextField(
-                        onChanged: (value) {
-                          itemname = value;
-                        },
-                        controller: itemnameController,
-                        decoration: InputDecoration(
-                          labelText: 'Item Name',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
+                      // Column(
+                      //   children: cardList,
+                      // )
+                      CardWidget(),
+                      SizedBox(
+                        height: 25.0,
                       ),
-                    ),
-                    SizedBox(
-                      height: 1.0,
-                    ),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width * 0.6,
-                    //   child: Text(
-                    //     "Quantity",
-                    //     style: CustomTextStyles.fieldLabelStyle,
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15.0,
-                    // ),
-                    Container(
-                      height: 100.0,
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: TextField(
-                        onChanged: (value) {
-                          quantity = value;
-                        },
-                        controller: quantityController,
-                        decoration: InputDecoration(
-                          labelText: 'Quantity',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width * 0.6,
+                      //   child: Text(
+                      //     "List Name",
+                      //     style: CustomTextStyles.fieldLabelStyle,
+                      //   ),
+                      // ),
+                      SizedBox(
+                        height: 15.0,
                       ),
-                    ),
-                    SizedBox(
-                      height: 1.0,
-                    ),
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width * 0.6,
-                    //   child: Text(
-                    //     "Notes",
-                    //     style: CustomTextStyles.fieldLabelStyle,
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: 15.0,
-                    // ),
-                    Container(
-                      height: 100.0,
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: TextField(
-                        onChanged: (value) {
-                          notes = value;
-                        },
-                        controller: notesController,
-                        decoration: InputDecoration(
-                          labelText: 'Notes',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: 80.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFC6011),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: _selectDate,
-                        child: Text(
-                          "Select Date",
-                          style: CustomTextStyles.buttonText,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Text(
-                      "Selected Date: $displayDate",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25.0,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50.0,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFC6011),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          Vibration.vibrate();
-                          String listname = listnameController.text;
-                          String itemname = itemnameController.text;
-                          String quantity = quantityController.text;
-                          String notes = notesController.text;
-                          var uuid = Uuid();
-                          String id = uuid.v4();
-                          print("id: $id");
-                          print("List Name: $listname");
-                          print("Item Name: $itemname");
-                          print("Quantity: $quantity");
-                          print("Notes: $notes");
-                          print("Date to Purchase: $displayDate");
-
-                          if (!listnameController.text.isEmpty) {
-                            FirebaseAuth _auth = FirebaseAuth.instance;
-                            final uid = _auth.currentUser.uid;
-                            FirebaseFirestore.instance
-                                .collection("users")
-                                .doc(uid)
-                                .update({
-                              "grocerylist": FieldValue.arrayUnion([
-                                {
-                                  "listname": "$listname",
-                                  "datecreated": "$displayDate",
-                                  "itemname": "$itemname",
-                                  "quantity": "$quantity",
-                                  "notes": "$notes"
-                                }
-                              ])
-                            });
-                          }
-                        },
-                        child: Text(
-                          "Add Item",
-                          style: CustomTextStyles.buttonText,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50.0,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFC6011),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                      ),
-                      child: TextButton(
-                        onPressed: () async {
-                          Vibration.vibrate(duration: 1000);
-                          await FirebaseAuth.instance.signOut();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MauGrocery(),
+                      Container(
+                        height: 100.0,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: TextFormField(
+                          validator: (listname) {
+                            if (listname.isEmpty) {
+                              return "List name cannot be empty";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            HapticFeedback.mediumImpact();
+                            listname = value;
+                          },
+                          controller: listnameController,
+                          decoration: InputDecoration(
+                            labelText: 'List Name',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                          );
-                          showDialog(
-                            context: context,
-                            builder: (context) => CustomDialog(
-                              content: Text(
-                                'Sign Out Successful',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.0,
+                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width * 0.6,
+                      //   child: Text(
+                      //     "Item Name",
+                      //     style: CustomTextStyles.fieldLabelStyle,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 15.0,
+                      // ),
+                      Container(
+                        height: 100.0,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: TextFormField(
+                          validator: (itemname) {
+                            if (itemname.isEmpty) {
+                              return "Item name cannot be empty";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            HapticFeedback.mediumImpact();
+                            itemname = value;
+                          },
+                          controller: itemnameController,
+                          decoration: InputDecoration(
+                            labelText: 'Item Name',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.0,
+                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width * 0.6,
+                      //   child: Text(
+                      //     "Quantity",
+                      //     style: CustomTextStyles.fieldLabelStyle,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 15.0,
+                      // ),
+                      Container(
+                        height: 100.0,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: TextFormField(
+                          validator: (quantity) {
+                            if (quantity.isEmpty) {
+                              return "Quantity cannot be empty";
+                            } else if (quantity.length > 3) {
+                              return "Quantity too high, 3 digits max";
+                            }
+                            return null;
+                          },
+                          maxLength: 3,
+                          onChanged: (value) {
+                            HapticFeedback.mediumImpact();
+                            quantity = value;
+                          },
+                          controller: quantityController,
+                          decoration: InputDecoration(
+                            labelText: 'Quantity',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 1.0,
+                      ),
+                      // Container(
+                      //   width: MediaQuery.of(context).size.width * 0.6,
+                      //   child: Text(
+                      //     "Notes",
+                      //     style: CustomTextStyles.fieldLabelStyle,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 15.0,
+                      // ),
+                      Container(
+                        height: 100.0,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: TextFormField(
+                          validator: (notes) {
+                            if (notes.isEmpty) {
+                              return "Notes cannot be empty";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            HapticFeedback.mediumImpact();
+                            notes = value;
+                          },
+                          controller: notesController,
+                          decoration: InputDecoration(
+                            labelText: 'Notes',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: 80.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFC6011),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        child: TextButton(
+                          onPressed: _selectDate,
+                          child: Text(
+                            "Select Date",
+                            style: CustomTextStyles.buttonText,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20.0),
+                      Text(
+                        "Selected Date: $displayDate",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 25.0,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFC6011),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            Vibration.vibrate();
+                            if (!dashboardFormKey.currentState.validate()) {
+                              String listname = listnameController.text;
+                              String itemname = itemnameController.text;
+                              String quantity = quantityController.text;
+                              String notes = notesController.text;
+                              var uuid = Uuid();
+                              String id = uuid.v4();
+                              print("id: $id");
+                              print("List Name: $listname");
+                              print("Item Name: $itemname");
+                              print("Quantity: $quantity");
+                              print("Notes: $notes");
+                              print("Date to Purchase: $displayDate");
+
+                              if (!listnameController.text.isEmpty) {
+                                FirebaseAuth _auth = FirebaseAuth.instance;
+                                final uid = _auth.currentUser.uid;
+                                FirebaseFirestore.instance
+                                    .collection("users")
+                                    .doc(uid)
+                                    .update({
+                                  "grocerylist": FieldValue.arrayUnion([
+                                    {
+                                      "listname": "$listname",
+                                      "datecreated": "$displayDate",
+                                      "itemname": "$itemname",
+                                      "quantity": "$quantity",
+                                      "notes": "$notes"
+                                    }
+                                  ])
+                                });
+                              }
+                            }
+                          },
+                          child: Text(
+                            "Add Item",
+                            style: CustomTextStyles.buttonText,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: 100.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFC6011),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                        ),
+                        child: TextButton(
+                          onPressed: () async {
+                            Vibration.vibrate(duration: 1000);
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MauGrocery(),
+                              ),
+                            );
+                            showDialog(
+                              context: context,
+                              builder: (context) => CustomDialog(
+                                content: Text(
+                                  'Sign Out Successful',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 20.0,
+                                  ),
+                                ),
+                                title: Text('MauGrocery'),
+                                firstColor: Colors.green,
+                                secondColor: Colors.white,
+                                headerIcon: Icon(
+                                  Icons.check_circle_outline,
+                                  size: 120.0,
+                                  color: Colors.white,
                                 ),
                               ),
-                              title: Text('MauGrocery'),
-                              firstColor: Colors.green,
-                              secondColor: Colors.white,
-                              headerIcon: Icon(
-                                Icons.check_circle_outline,
-                                size: 120.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Sign Out",
-                          style: CustomTextStyles.buttonText,
+                            );
+                          },
+                          child: Text(
+                            "Sign Out",
+                            style: CustomTextStyles.buttonText,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 100.0,
-                    ),
-                  ],
+                      SizedBox(
+                        height: 100.0,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
