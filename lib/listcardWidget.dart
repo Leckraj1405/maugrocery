@@ -51,6 +51,7 @@ class _CardWidgetState extends State<CardWidget> {
                     snapshot.data.docs[index]['grocerylist'];
 
                 return ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: groceryList.length,
                     itemBuilder: (context, index) => Card(

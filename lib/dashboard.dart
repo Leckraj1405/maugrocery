@@ -106,7 +106,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Dashboard - Grocery Lists"),
+        title: Text("Home - Dashboard"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(
@@ -128,7 +128,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       // )
                       CardWidget(),
                       SizedBox(
-                        height: 50.0,
+                        height: 30.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.9,
