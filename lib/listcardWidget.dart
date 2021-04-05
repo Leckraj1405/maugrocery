@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:maugrocery/edititemDetails.dart';
 import 'package:vibration/vibration.dart';
 
 import 'addItem.dart';
@@ -94,31 +95,35 @@ class _CardWidgetState extends State<CardWidget> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => AddItemPage(),
+                                            builder: (context) =>
+                                                EditItemDetailsPage(),
                                           ),
                                         );
                                       },
                                       child: Row(
                                         children: [
                                           Icon(
-                                            Icons.preview_rounded,
+                                            Icons.edit,
                                             color: Colors.white,
                                           ),
                                           SizedBox(
-                                            width: 10.0,
+                                            width: 15.0,
                                           ),
                                           Text(
-                                            "View List",
+                                            "Edit Details",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16.0),
+                                          ),
+                                          SizedBox(
+                                            width: 15.0,
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 75.0,
+                                    width: 30.0,
                                   ),
                                   Container(
                                     color: Colors.blueGrey[700],
@@ -135,13 +140,16 @@ class _CardWidgetState extends State<CardWidget> {
                                             color: Colors.white,
                                           ),
                                           SizedBox(
-                                            width: 10.0,
+                                            width: 15.0,
                                           ),
                                           Text(
                                             "Delete",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 16.0),
+                                          ),
+                                          SizedBox(
+                                            width: 15.0,
                                           ),
                                         ],
                                       ),

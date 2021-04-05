@@ -20,10 +20,16 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   TextEditingController listnameController = new TextEditingController();
+  TextEditingController itemnameController = new TextEditingController();
+  TextEditingController quantityController = new TextEditingController();
+  TextEditingController notesController = new TextEditingController();
 
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   String listname;
+  String itemname;
+  String quantity;
+  String notes;
 
   _getCurrentUser() {
     if (_auth.currentUser != null) {
@@ -120,13 +126,13 @@ class _DashboardPageState extends State<DashboardPage> {
                     SizedBox(
                       height: 25.0,
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: Text(
-                        "List Name",
-                        style: CustomTextStyles.fieldLabelStyle,
-                      ),
-                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width * 0.6,
+                    //   child: Text(
+                    //     "List Name",
+                    //     style: CustomTextStyles.fieldLabelStyle,
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 15.0,
                     ),
@@ -140,6 +146,93 @@ class _DashboardPageState extends State<DashboardPage> {
                         controller: listnameController,
                         decoration: InputDecoration(
                           labelText: 'List Name',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 1.0,
+                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width * 0.6,
+                    //   child: Text(
+                    //     "Item Name",
+                    //     style: CustomTextStyles.fieldLabelStyle,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 15.0,
+                    // ),
+                    Container(
+                      height: 100.0,
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: TextField(
+                        onChanged: (value) {
+                          itemname = value;
+                        },
+                        controller: itemnameController,
+                        decoration: InputDecoration(
+                          labelText: 'Item Name',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 1.0,
+                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width * 0.6,
+                    //   child: Text(
+                    //     "Quantity",
+                    //     style: CustomTextStyles.fieldLabelStyle,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 15.0,
+                    // ),
+                    Container(
+                      height: 100.0,
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: TextField(
+                        onChanged: (value) {
+                          quantity = value;
+                        },
+                        controller: quantityController,
+                        decoration: InputDecoration(
+                          labelText: 'Quantity',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 1.0,
+                    ),
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width * 0.6,
+                    //   child: Text(
+                    //     "Notes",
+                    //     style: CustomTextStyles.fieldLabelStyle,
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 15.0,
+                    // ),
+                    Container(
+                      height: 100.0,
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      child: TextField(
+                        onChanged: (value) {
+                          notes = value;
+                        },
+                        controller: notesController,
+                        decoration: InputDecoration(
+                          labelText: 'Notes',
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
@@ -166,7 +259,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 25.0),
+                    SizedBox(height: 20.0),
                     Text(
                       "Selected Date: $displayDate",
                       textAlign: TextAlign.center,
@@ -190,11 +283,17 @@ class _DashboardPageState extends State<DashboardPage> {
                         onPressed: () {
                           Vibration.vibrate();
                           String listname = listnameController.text;
+                          String itemname = itemnameController.text;
+                          String quantity = quantityController.text;
+                          String notes = notesController.text;
                           var uuid = Uuid();
                           String id = uuid.v4();
                           print("id: $id");
                           print("List Name: $listname");
-                          print("Date Created: $displayDate");
+                          print("Item Name: $itemname");
+                          print("Quantity: $quantity");
+                          print("Notes: $notes");
+                          print("Date to Purchase: $displayDate");
 
                           if (!listnameController.text.isEmpty) {
                             FirebaseAuth _auth = FirebaseAuth.instance;
@@ -206,14 +305,17 @@ class _DashboardPageState extends State<DashboardPage> {
                               "grocerylist": FieldValue.arrayUnion([
                                 {
                                   "listname": "$listname",
-                                  "datecreated": "$displayDate"
+                                  "datecreated": "$displayDate",
+                                  "itemname": "$itemname",
+                                  "quantity": "$quantity",
+                                  "notes": "$notes"
                                 }
                               ])
                             });
                           }
                         },
                         child: Text(
-                          "Add List",
+                          "Add Item",
                           style: CustomTextStyles.buttonText,
                         ),
                       ),
