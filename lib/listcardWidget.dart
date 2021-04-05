@@ -41,7 +41,7 @@ class _CardWidgetState extends State<CardWidget> {
           );
         }
         return Container(
-          height: 350,
+          height: 315,
           width: 370,
           child: ListView.builder(
             itemCount: snapshot.data.docs.length,
