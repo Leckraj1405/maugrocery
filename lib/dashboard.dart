@@ -254,6 +254,10 @@ class _DashboardPageState extends State<DashboardPage> {
                             quantity = value;
                           },
                           controller: quantityController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           decoration: InputDecoration(
                             labelText: 'Quantity',
                             border: OutlineInputBorder(

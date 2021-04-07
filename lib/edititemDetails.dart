@@ -149,6 +149,10 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             Vibration.vibrate();
                             quantity = value;
                           },
+                          keyboardType: TextInputType.number,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
                           decoration: InputDecoration(
                             labelText: 'New Quantity',
                             border: OutlineInputBorder(
