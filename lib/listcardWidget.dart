@@ -67,11 +67,80 @@ class _CardWidgetState extends State<CardWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${groceryList[index]['listname']}',
+                                'Store: ${groceryList[index]['listname']}',
                                 style: TextStyle(
-                                    fontSize: 32.0,
+                                    fontSize: 22.0,
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(
+                                height: 1.0,
+                              ),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Item: ${groceryList[index]['itemname']}',
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 70.0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Quantity: ${groceryList[index]['quantity']}',
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        width: 15.0,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 1.7,
+                              ),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Purchase Date: ${groceryList[index]['datecreated']}',
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 1.0,
+                              ),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Notes: ${groceryList[index]['notes']}',
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                               SizedBox(
                                 height: 10.0,
@@ -85,7 +154,7 @@ class _CardWidgetState extends State<CardWidget> {
                                   // Expanded(
                                   //     child: IconButton(
                                   //   icon: Icon(Icons.delete),
-                                  // ))
+                                  // )),
                                   Container(
                                     color: Colors.blueGrey[700],
                                     child: TextButton(

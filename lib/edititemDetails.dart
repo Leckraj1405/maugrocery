@@ -197,7 +197,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         height: 15.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         height: 80.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
@@ -208,7 +208,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         child: TextButton(
                           onPressed: _selectDate,
                           child: Text(
-                            "Select Date",
+                            "Select New Date",
                             style: CustomTextStyles.buttonText,
                           ),
                         ),
@@ -225,7 +225,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         height: 35.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        width: MediaQuery.of(context).size.width * 0.75,
                         height: 100.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
