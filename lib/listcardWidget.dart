@@ -90,7 +90,7 @@ class _CardWidgetState extends State<CardWidget> {
                                     ],
                                   ),
                                   SizedBox(
-                                    width: 70.0,
+                                    width: 20.0,
                                   ),
                                   Row(
                                     children: [
