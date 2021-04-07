@@ -62,7 +62,7 @@ class _CardWidgetState extends State<CardWidget> {
                         color: Color(0xFFFC6011),
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 20.0, bottom: 20.0),
+                              left: 25.0, right: 5.0, top: 10.0, bottom: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

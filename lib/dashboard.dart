@@ -106,7 +106,7 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Home - Dashboard"),
+        title: Text("Home - MauGrocery"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(
@@ -126,6 +126,17 @@ class _DashboardPageState extends State<DashboardPage> {
                       // Column(
                       //   children: cardList,
                       // )
+                      Text(
+                        "currently logged in as: ${_auth.currentUser.email}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 10.0,
+                            fontWeight: FontWeight.bold),
+                        // style: CustomTextStyles.fieldLabelStyle,
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
                       CardWidget(),
                       SizedBox(
                         height: 30.0,
