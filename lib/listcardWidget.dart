@@ -22,7 +22,7 @@ class _CardWidgetState extends State<CardWidget> {
   @override
   void initState() {
     getCurrentUser().then((id) {
-      print('xxxx ${id.toString()}');
+      print('USER ID: ${id.toString()}');
       setState(() {
         userid = id.toString();
       });

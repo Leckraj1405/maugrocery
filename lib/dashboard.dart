@@ -127,7 +127,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       //   children: cardList,
                       // )
                       Text(
-                        "currently logged in as: ${_auth.currentUser.email}",
+                        "Currently logged in as: ${_auth.currentUser.email}",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 10.0,
@@ -353,7 +353,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             var uuid = Uuid();
                             String id = uuid.v4();
                             print("id: $id");
-                            print("List Name: $listname");
+                            print("Store Name: $listname");
                             print("Item Name: $itemname");
                             print("Quantity: $quantity");
                             print("Notes: $notes");
