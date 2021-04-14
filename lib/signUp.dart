@@ -181,6 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 },
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.email_sharp),
                                   labelText: 'Email',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -222,6 +223,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 },
                                 obscureText: isHiddenPassword,
                                 decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.security_sharp),
                                   suffixIcon: InkWell(
                                       onTap: _togglePasswordView,
                                       child: Icon(Icons.visibility)),
@@ -265,6 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 },
                                 obscureText: true,
                                 decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.security_sharp),
                                   labelText: 'Confirm Password',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),

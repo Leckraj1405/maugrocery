@@ -177,6 +177,7 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.email_sharp),
                                   labelText: 'Email',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -219,6 +220,7 @@ class _SignInPageState extends State<SignInPage> {
                                 },
                                 obscureText: isHiddenPassword,
                                 decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.security_sharp),
                                   suffixIcon: InkWell(
                                       onTap: _togglePasswordView,
                                       child: Icon(Icons.visibility)),

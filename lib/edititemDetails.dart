@@ -127,6 +127,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             itemname = value;
                           },
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.fastfood_sharp),
                             labelText: 'New Item Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -170,6 +171,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.tag),
                             labelText: 'New Quantity',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -207,6 +209,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             notes = value;
                           },
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.notes_sharp),
                             labelText: 'New Notes',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),

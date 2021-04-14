@@ -181,6 +181,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           },
                           controller: listnameController,
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.storefront_rounded),
                             labelText: 'List Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -218,6 +219,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           },
                           controller: itemnameController,
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.fastfood_sharp),
                             labelText: 'Item Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -262,6 +264,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.tag),
                             labelText: 'Quantity',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
@@ -299,6 +302,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           },
                           controller: notesController,
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.notes_sharp),
                             labelText: 'Notes',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
