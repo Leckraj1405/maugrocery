@@ -125,13 +125,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                       // Column(
                       //   children: cardList,
-                      // )
+                      // ),
                       Text(
                         "Currently logged in as: ${_auth.currentUser.email}",
                         style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 10.0,
-                            fontWeight: FontWeight.bold),
+                          color: Colors.blueGrey[700],
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                         // style: CustomTextStyles.fieldLabelStyle,
                       ),
                       SizedBox(
@@ -185,6 +186,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
@@ -221,6 +223,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
@@ -264,6 +267,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
@@ -300,6 +304,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
@@ -322,7 +327,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 22.0),
                       Text(
                         "Selected Date: $displayDate",
                         textAlign: TextAlign.center,

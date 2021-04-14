@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/dashboard.dart';
+import 'package:maugrocery/signUp.dart';
 import 'package:vibration/vibration.dart';
 import 'custom_dialog.dart';
 import 'loading.dart';
@@ -16,6 +17,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  bool isHiddenPassword = true;
   final signInFormKey = GlobalKey<FormState>();
   String email;
   String password;
@@ -120,7 +122,8 @@ class _SignInPageState extends State<SignInPage> {
       await flutterTts.setPitch(1);
       await flutterTts.setVolume(1);
       await flutterTts.setSpeechRate(0.8);
-      await flutterTts.speak("Enter your email and password to sign in");
+      await flutterTts.speak(
+          "Enter your email and password to sign in, and tap on the bottom right section of your screen if you need to create an account.");
     }
 
     return loading
@@ -180,6 +183,8 @@ class _SignInPageState extends State<SignInPage> {
                                   ),
                                   //labelText: 'username here',
                                 ),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 22.0),
                               ),
                             ),
                             SizedBox(
@@ -212,13 +217,18 @@ class _SignInPageState extends State<SignInPage> {
                                   HapticFeedback.mediumImpact();
                                   password = value;
                                 },
-                                obscureText: true,
+                                obscureText: isHiddenPassword,
                                 decoration: InputDecoration(
+                                  suffixIcon: InkWell(
+                                      onTap: _togglePasswordView,
+                                      child: Icon(Icons.visibility)),
                                   labelText: 'Password',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 22.0),
                               ),
                             ),
                             SizedBox(
@@ -286,10 +296,50 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 1, bottom: 1),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUpPage(),
+                            ),
+                          );
+                          Vibration.vibrate();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFC6011),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          width: 75.0,
+                          height: 75.0,
+                          //color: Colors.black,
+                          child: Center(
+                            child: Icon(FontAwesomeIcons.userPlus),
+                          ),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
           );
+  }
+
+  void _togglePasswordView() {
+    if (isHiddenPassword == true) {
+      isHiddenPassword = false;
+    } else {
+      isHiddenPassword = true;
+    }
+    setState(() {});
   }
 }

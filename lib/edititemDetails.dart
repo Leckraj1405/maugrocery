@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +9,9 @@ import 'package:vibration/vibration.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 class EditItemDetailsPage extends StatefulWidget {
+  DocumentSnapshot docToEdit;
+  EditItemDetailsPage({this.docToEdit});
+
   @override
   _EditItemDetailsPageState createState() => _EditItemDetailsPageState();
 }
@@ -16,6 +20,17 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
   TextEditingController itemnameController = new TextEditingController();
   TextEditingController quantityController = new TextEditingController();
   TextEditingController notesController = new TextEditingController();
+
+  // @override
+  // void initState() {
+  //   itemnameController =
+  //       TextEditingController(text: widget.docToEdit.data['itemname']);
+  //   quantityController =
+  //       TextEditingController(text: widget.docToEdit.data['quantity']);
+  //   notesController =
+  //       TextEditingController(text: widget.docToEdit.data['notes']);
+  //   super.initState();
+  // }
 
   String itemname;
   String quantity;
@@ -94,7 +109,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 15.0,
+                        height: 10.0,
                       ),
                       Container(
                         height: 100.0,
@@ -118,10 +133,11 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             ),
                             //labelText: 'password here',
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
-                        height: 10.0,
+                        height: 15.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.7,
@@ -131,7 +147,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 15.0,
+                        height: 10.0,
                       ),
                       Container(
                         height: 100.0,
@@ -159,10 +175,11 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
-                        height: 10.0,
+                        height: 15.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.7,
@@ -172,7 +189,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 15.0,
+                        height: 10.0,
                       ),
                       Container(
                         height: 100.0,
@@ -195,6 +212,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
@@ -222,11 +240,11 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         "Selected Date: $displayDate",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 22.0,
                         ),
                       ),
                       SizedBox(
-                        height: 35.0,
+                        height: 40.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.75,

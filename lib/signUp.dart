@@ -6,6 +6,7 @@ import 'package:form_validator/form_validator.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/dashboard.dart';
 import 'package:maugrocery/loading.dart';
+import 'package:maugrocery/signIn.dart';
 import 'package:vibration/vibration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'custom_dialog.dart';
@@ -17,6 +18,7 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  bool isHiddenPassword = true;
   String email;
   String password;
   String confirmpassword;
@@ -126,7 +128,7 @@ class _SignUpPageState extends State<SignUpPage> {
       await flutterTts.setVolume(1);
       await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
-          "Enter your email and password and press register to create your account");
+          "Enter your email and password and press register to create your account and tap on the bottom right section of your screen if you already an account to sign in.");
     }
 
     return loading
@@ -184,6 +186,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 22.0),
                               ),
                             ),
                             SizedBox(
@@ -216,13 +220,18 @@ class _SignUpPageState extends State<SignUpPage> {
                                   HapticFeedback.mediumImpact();
                                   password = value;
                                 },
-                                obscureText: true,
+                                obscureText: isHiddenPassword,
                                 decoration: InputDecoration(
-                                  labelText: 'Minimum 6 Characters',
+                                  suffixIcon: InkWell(
+                                      onTap: _togglePasswordView,
+                                      child: Icon(Icons.visibility)),
+                                  labelText: 'Min 6 Characters',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 22.0),
                               ),
                             ),
                             SizedBox(
@@ -261,6 +270,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 22.0),
                               ),
                             ),
                             SizedBox(
@@ -329,10 +340,49 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 1, bottom: 1),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignInPage(),
+                            ),
+                          );
+                          Vibration.vibrate();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFC6011),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                          width: 75.0,
+                          height: 75.0,
+                          child: Center(
+                            child: Icon(FontAwesomeIcons.signInAlt),
+                          ),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
           );
+  }
+
+  void _togglePasswordView() {
+    if (isHiddenPassword == true) {
+      isHiddenPassword = false;
+    } else {
+      isHiddenPassword = true;
+    }
+    setState(() {});
   }
 }

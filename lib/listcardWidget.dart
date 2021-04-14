@@ -163,8 +163,10 @@ class _CardWidgetState extends State<CardWidget> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                EditItemDetailsPage(),
+                                            builder: (_) => EditItemDetailsPage(
+                                              docToEdit:
+                                                  snapshot.data.docs[index],
+                                            ),
                                           ),
                                         );
                                       },
