@@ -21,7 +21,6 @@ class _CardWidgetState extends State<CardWidget> {
     return uid.toString();
   }
 
-  @override
   Future _speak1() async {
     await flutterTts.speak("Going to Edit Item page.");
   }
