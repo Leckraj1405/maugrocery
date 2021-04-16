@@ -70,7 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
       initialDate: _date,
       firstDate: DateTime(2017, 1),
       lastDate: DateTime(2100, 7),
-      helpText: 'Select a date',
+      helpText: 'Select Purchase Date',
     );
     if (newDate != null) {
       displayDate = newDate.toString();

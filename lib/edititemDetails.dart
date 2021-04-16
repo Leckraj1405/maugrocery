@@ -8,6 +8,8 @@ import 'package:maugrocery/custom_dialog.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+import 'dashboard.dart';
+
 class EditItemDetailsPage extends StatefulWidget {
   DocumentSnapshot docToEdit;
   EditItemDetailsPage({this.docToEdit});
@@ -48,7 +50,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
       initialDate: _date,
       firstDate: DateTime(2017, 1),
       lastDate: DateTime(2100, 7),
-      helpText: 'Select a date',
+      helpText: 'Select New Purchase Date',
     );
     if (newDate != null) {
       displayDate = newDate.toString();
@@ -274,7 +276,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AddItemPage()));
+                                      builder: (context) => DashboardPage()));
                               showDialog(
                                 context: context,
                                 builder: (context) => CustomDialog(
