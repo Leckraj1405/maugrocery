@@ -131,6 +131,14 @@ class _SignUpPageState extends State<SignUpPage> {
           "Enter your email and password and press register to create your account and tap on the bottom right section of your screen if you already an account to sign in.");
     }
 
+    Future _speak1() async {
+      await flutterTts.speak("User is being registered.");
+    }
+
+    Future _speak2() async {
+      await flutterTts.speak("Going to Sign In page.");
+    }
+
     return loading
         ? Loading()
         : Scaffold(
@@ -291,6 +299,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                               child: TextButton(
                                 onPressed: () async {
+                                  _speak1();
                                   Vibration.vibrate();
                                   if (signUpFormKey.currentState.validate()) {
                                     print('here');
@@ -350,6 +359,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       alignment: Alignment.bottomRight,
                       child: TextButton(
                         onPressed: () {
+                          _speak2();
                           Navigator.push(
                             context,
                             MaterialPageRoute(

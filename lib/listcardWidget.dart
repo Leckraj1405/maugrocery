@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:maugrocery/edititemDetails.dart';
 import 'package:vibration/vibration.dart';
 
@@ -10,6 +11,7 @@ class CardWidget extends StatefulWidget {
 }
 
 class _CardWidgetState extends State<CardWidget> {
+  final FlutterTts flutterTts = FlutterTts();
   String userid;
 
   Future getCurrentUser() async {
@@ -20,6 +22,14 @@ class _CardWidgetState extends State<CardWidget> {
   }
 
   @override
+  Future _speak1() async {
+    await flutterTts.speak("Going to Edit Item page.");
+  }
+
+  Future _speak2() async {
+    await flutterTts.speak("Item is being deleted.");
+  }
+
   void initState() {
     getCurrentUser().then((id) {
       print('USER ID: ${id.toString()}');
@@ -159,6 +169,7 @@ class _CardWidgetState extends State<CardWidget> {
                                     color: Colors.blueGrey[700],
                                     child: TextButton(
                                       onPressed: () {
+                                        _speak1();
                                         Vibration.vibrate();
                                         Navigator.push(
                                           context,
@@ -199,6 +210,7 @@ class _CardWidgetState extends State<CardWidget> {
                                     color: Colors.blueGrey[700],
                                     child: TextButton(
                                       onPressed: () {
+                                        _speak2();
                                         Vibration.vibrate();
                                         //call method to delete from database
                                         //eg. deleteCard(widget.id);

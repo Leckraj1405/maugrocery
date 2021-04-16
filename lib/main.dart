@@ -47,6 +47,18 @@ class _WelcomePageState extends State<WelcomePage> {
           "Welcome to MauGrocery, to login, press the upper section of the screen, and to register, press the lower area of the screen. Tap on the bottom right of your screen to access the information page.");
     }
 
+    Future _speak1() async {
+      await flutterTts.speak("Going to Sign In page.");
+    }
+
+    Future _speak2() async {
+      await flutterTts.speak("Going to Registration Page");
+    }
+
+    Future _speak3() async {
+      await flutterTts.speak("Going to Information Page");
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("MauGrocery - Welcome"),
@@ -75,6 +87,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       child: TextButton(
                         onPressed: () {
+                          _speak1();
                           Vibration.vibrate();
                           Navigator.push(
                               context,
@@ -102,6 +115,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                       child: TextButton(
                         onPressed: () {
+                          _speak2();
                           Vibration.vibrate();
                           Navigator.push(
                             context,
@@ -157,6 +171,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 alignment: Alignment.bottomRight,
                 child: TextButton(
                   onPressed: () {
+                    _speak3();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => HelpPage()));
                     Vibration.vibrate();

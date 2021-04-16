@@ -41,7 +41,7 @@ class _HelpPageState extends State<HelpPage> {
                         child: Image.asset('images/transparentBackground.png'),
                       ),
                       SizedBox(
-                        height: 60.0,
+                        height: 30.0,
                       ),
                       Container(
                         // width: MediaQuery.of(context).size.width * 0.6,
@@ -62,11 +62,11 @@ class _HelpPageState extends State<HelpPage> {
                           "MauGrocery is a grocery inventory planner. Create your grocery list, and start adding your items in your list.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 24.0, color: Colors.blueGrey[700]),
+                              fontSize: 22.0, color: Colors.blueGrey[700]),
                         ),
                       ),
                       SizedBox(
-                        height: 50.0,
+                        height: 30.0,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.9,
@@ -74,11 +74,22 @@ class _HelpPageState extends State<HelpPage> {
                           "MauGrocery is suitable for people with visual impairments, and voice synthesisers help user to navigate the application.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 24.0, color: Colors.blueGrey[700]),
+                              fontSize: 22.0, color: Colors.blueGrey[700]),
                         ),
                       ),
                       SizedBox(
                         height: 15.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Text(
+                          "Developer contact: LL675@live.mdx.ac.uk",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17.0,
+                              color: Colors.blueGrey[700]),
+                        ),
                       ),
                     ],
                   ),

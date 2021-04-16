@@ -126,6 +126,14 @@ class _SignInPageState extends State<SignInPage> {
           "Enter your email and password to sign in, and tap on the bottom right section of your screen if you need to create an account.");
     }
 
+    Future _speak1() async {
+      await flutterTts.speak("User sign in in process.");
+    }
+
+    Future _speak2() async {
+      await flutterTts.speak("Going to Registration page.");
+    }
+
     return loading
         ? Loading()
         : Scaffold(
@@ -247,6 +255,7 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                               child: TextButton(
                                 onPressed: () async {
+                                  _speak1();
                                   Vibration.vibrate();
                                   if (signInFormKey.currentState.validate()) {
                                     setState(() {
@@ -259,7 +268,7 @@ class _SignInPageState extends State<SignInPage> {
                                   }
                                 },
                                 child: Text(
-                                  "Sign in",
+                                  "Sign In",
                                   style: CustomTextStyles.buttonText,
                                 ),
                               ),
@@ -305,6 +314,7 @@ class _SignInPageState extends State<SignInPage> {
                       alignment: Alignment.bottomRight,
                       child: TextButton(
                         onPressed: () {
+                          _speak2();
                           Navigator.push(
                             context,
                             MaterialPageRoute(

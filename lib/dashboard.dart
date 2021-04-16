@@ -103,6 +103,14 @@ class _DashboardPageState extends State<DashboardPage> {
           "Enter your item details in the text field provided, such as the supermarket name, item name, its quantity, the purchase date and add some notes as well. Hit add item to add the item to your list, and find the sign out options below.");
     }
 
+    Future _speak1() async {
+      await flutterTts.speak("User tapped to add item.");
+    }
+
+    Future _speak2() async {
+      await flutterTts.speak("User tapped to sign out.");
+    }
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -333,7 +341,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                       SizedBox(height: 22.0),
                       Text(
-                        "Selected Date: $displayDate",
+                        "Purchase Date: $displayDate",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 20.0,
@@ -353,6 +361,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         child: TextButton(
                           onPressed: () {
+                            _speak1();
                             Vibration.vibrate();
                             if (!dashboardFormKey.currentState.validate()) {}
                             String listname = listnameController.text;
@@ -407,6 +416,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
+                            _speak2();
                             Vibration.vibrate(duration: 1000);
                             await FirebaseAuth.instance.signOut();
                             Navigator.push(

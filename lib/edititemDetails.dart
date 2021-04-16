@@ -81,6 +81,10 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
           "Enter your desired supermarket name, item name, notes, new date and quantity. Press update and save button.");
     }
 
+    Future _speak1() async {
+      await flutterTts.speak("User tapped to confirm changes.");
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Item Details"),
@@ -262,6 +266,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
+                            _speak1();
                             String itemname = itemnameController.text;
                             print("This is your new item name: $itemname");
                             String quantity = quantityController.text;
