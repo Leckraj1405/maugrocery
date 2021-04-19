@@ -171,14 +171,10 @@ class _CardWidgetState extends State<CardWidget> {
                                         _speak1();
                                         Vibration.vibrate();
                                         Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => EditItemDetailsPage(
-                                              docToEdit:
-                                                  snapshot.data.docs[index],
-                                            ),
-                                          ),
-                                        );
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditItemDetailsPage()));
                                       },
                                       child: Row(
                                         children: [

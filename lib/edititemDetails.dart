@@ -81,7 +81,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
     }
 
     Future _speak1() async {
-      await flutterTts.speak("User tapped to confirm changes.");
+      await flutterTts.speak("Item updated");
     }
 
     return Scaffold(

@@ -104,11 +104,11 @@ class _DashboardPageState extends State<DashboardPage> {
     }
 
     Future _speak1() async {
-      await flutterTts.speak("User tapped to add item.");
+      await flutterTts.speak("Item added.");
     }
 
     Future _speak2() async {
-      await flutterTts.speak("User tapped to sign out.");
+      await flutterTts.speak("Signing out.");
     }
 
     return Scaffold(
