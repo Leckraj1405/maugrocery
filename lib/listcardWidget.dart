@@ -179,7 +179,7 @@ class _CardWidgetState extends State<CardWidget> {
                                       child: Row(
                                         children: [
                                           Icon(
-                                            Icons.edit,
+                                            Icons.edit_outlined,
                                             color: Colors.white,
                                           ),
                                           SizedBox(
@@ -205,6 +205,13 @@ class _CardWidgetState extends State<CardWidget> {
                                     color: Colors.blueGrey[700],
                                     child: TextButton(
                                       onPressed: () {
+                                        // FirebaseAuth _auth =
+                                        //     FirebaseAuth.instance;
+                                        // final uid = _auth.currentUser.uid;
+                                        // FirebaseFirestore.instance
+                                        //     .collection("users")
+                                        //     .doc(uid)
+                                        //     .delete();
                                         _speak2();
                                         Vibration.vibrate();
                                         //call method to delete from database

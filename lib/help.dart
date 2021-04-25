@@ -117,7 +117,11 @@ class _HelpPageState extends State<HelpPage> {
                     height: 75.0,
                     //color: Colors.black,
                     child: Center(
-                      child: Icon(FontAwesomeIcons.microphone),
+                      child: Icon(
+                        Icons.mic_outlined,
+                        color: Colors.black,
+                        size: 45,
+                      ),
                     ),
                   ),
                 ),

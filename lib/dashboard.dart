@@ -323,8 +323,8 @@ class _DashboardPageState extends State<DashboardPage> {
                         height: 5.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        height: 80.0,
+                        width: MediaQuery.of(context).size.width * 0.63,
+                        height: 90.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
                           borderRadius: BorderRadius.all(
@@ -333,9 +333,27 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         child: TextButton(
                           onPressed: _selectDate,
-                          child: Text(
-                            "Select Date",
-                            style: CustomTextStyles.buttonText,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Icon(
+                                Icons.date_range_outlined,
+                                color: Colors.black,
+                                size: 40,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                "Select Date",
+                                style: CustomTextStyles.buttonText,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -396,9 +414,27 @@ class _DashboardPageState extends State<DashboardPage> {
                               });
                             }
                           },
-                          child: Text(
-                            "Add Item",
-                            style: CustomTextStyles.buttonText,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Icon(
+                                Icons.add_box_outlined,
+                                color: Colors.black,
+                                size: 45,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                "Add Item",
+                                style: CustomTextStyles.buttonText,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -406,7 +442,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         height: 50.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.5,
+                        width: MediaQuery.of(context).size.width * 0.55,
                         height: 100.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
@@ -446,9 +482,27 @@ class _DashboardPageState extends State<DashboardPage> {
                               ),
                             );
                           },
-                          child: Text(
-                            "Sign Out",
-                            style: CustomTextStyles.buttonText,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Icon(
+                                Icons.logout,
+                                color: Colors.black,
+                                size: 45,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                "Sign Out",
+                                style: CustomTextStyles.buttonText,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -481,7 +535,11 @@ class _DashboardPageState extends State<DashboardPage> {
                     height: 75.0,
                     //color: Colors.black,
                     child: Center(
-                      child: Icon(FontAwesomeIcons.microphone),
+                      child: Icon(
+                        Icons.mic_outlined,
+                        color: Colors.black,
+                        size: 45,
+                      ),
                     ),
                   ),
                 ),

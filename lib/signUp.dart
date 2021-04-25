@@ -312,9 +312,28 @@ class _SignUpPageState extends State<SignUpPage> {
                                     );
                                   }
                                 },
-                                child: Text(
-                                  "Register",
-                                  style: CustomTextStyles.buttonText,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 40.0,
+                                    ),
+                                    Icon(
+                                      Icons.app_registration,
+                                      color: Colors.black,
+                                      size: 45,
+                                    ),
+                                    SizedBox(
+                                      width: 15.0,
+                                    ),
+                                    Text(
+                                      "Register",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 35.0),
+                                    ),
+                                    SizedBox(
+                                      width: 15.0,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -347,7 +366,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           height: 75.0,
                           //color: Colors.black,
                           child: Center(
-                            child: Icon(FontAwesomeIcons.microphone),
+                            child: Icon(
+                              Icons.mic_outlined,
+                              color: Colors.black,
+                              size: 45,
+                            ),
                           ),
                         ),
                       ),
@@ -378,7 +401,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           width: 75.0,
                           height: 75.0,
                           child: Center(
-                            child: Icon(FontAwesomeIcons.signInAlt),
+                            child: Icon(
+                              Icons.login_outlined,
+                              color: Colors.black,
+                              size: 40,
+                            ),
                           ),
                         ),
                       ),

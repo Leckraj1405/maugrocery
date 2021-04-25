@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -227,7 +228,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         height: 15.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.7,
+                        width: MediaQuery.of(context).size.width * 0.80,
                         height: 80.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
@@ -237,9 +238,27 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: _selectDate,
-                          child: Text(
-                            "Select New Date",
-                            style: CustomTextStyles.buttonText,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Icon(
+                                Icons.date_range_outlined,
+                                color: Colors.black,
+                                size: 40,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                "Select New Date",
+                                style: CustomTextStyles.buttonText,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -255,7 +274,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         height: 40.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.75,
+                        width: MediaQuery.of(context).size.width * 0.70,
                         height: 100.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
@@ -277,6 +296,21 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             Vibration.vibrate();
                             if (edititemFormKey.currentState.validate()) {
                               print('here');
+                              FirebaseAuth _auth = FirebaseAuth.instance;
+                              final uid = _auth.currentUser.uid;
+                              FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(uid)
+                                  .update({
+                                "grocerylist": FieldValue.arrayUnion([
+                                  {
+                                    "datecreated": "$displayDate",
+                                    "itemname": "$itemname",
+                                    "quantity": "$quantity",
+                                    "notes": "$notes"
+                                  }
+                                ])
+                              });
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -303,9 +337,27 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                               );
                             }
                           },
-                          child: Text(
-                            "Update & Save",
-                            style: CustomTextStyles.buttonText,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Icon(
+                                Icons.edit_outlined,
+                                color: Colors.black,
+                                size: 40,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                              Text(
+                                "Update Item",
+                                style: CustomTextStyles.buttonText,
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -338,7 +390,11 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                     height: 75.0,
                     //color: Colors.black,
                     child: Center(
-                      child: Icon(FontAwesomeIcons.microphone),
+                      child: Icon(
+                        Icons.mic_outlined,
+                        color: Colors.black,
+                        size: 45,
+                      ),
                     ),
                   ),
                 ),

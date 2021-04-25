@@ -267,9 +267,28 @@ class _SignInPageState extends State<SignInPage> {
                                         password: passwordController.text);
                                   }
                                 },
-                                child: Text(
-                                  "Sign In",
-                                  style: CustomTextStyles.buttonText,
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 40.0,
+                                    ),
+                                    Icon(
+                                      Icons.login_outlined,
+                                      color: Colors.black,
+                                      size: 50,
+                                    ),
+                                    SizedBox(
+                                      width: 15.0,
+                                    ),
+                                    Text(
+                                      "Sign In",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 35.0),
+                                    ),
+                                    SizedBox(
+                                      width: 15.0,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -302,7 +321,11 @@ class _SignInPageState extends State<SignInPage> {
                           height: 75.0,
                           //color: Colors.black,
                           child: Center(
-                            child: Icon(FontAwesomeIcons.microphone),
+                            child: Icon(
+                              Icons.mic_outlined,
+                              color: Colors.black,
+                              size: 45,
+                            ),
                           ),
                         ),
                       ),
@@ -334,7 +357,11 @@ class _SignInPageState extends State<SignInPage> {
                           height: 75.0,
                           //color: Colors.black,
                           child: Center(
-                            child: Icon(FontAwesomeIcons.userPlus),
+                            child: Icon(
+                              Icons.app_registration,
+                              color: Colors.black,
+                              size: 45,
+                            ),
                           ),
                         ),
                       ),
