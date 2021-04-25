@@ -228,7 +228,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         height: 15.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.80,
+                        width: MediaQuery.of(context).size.width * 0.75,
                         height: 80.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
@@ -241,7 +241,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                           child: Row(
                             children: [
                               SizedBox(
-                                width: 15.0,
+                                width: 10.0,
                               ),
                               Icon(
                                 Icons.date_range_outlined,
@@ -252,7 +252,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                                 width: 15.0,
                               ),
                               Text(
-                                "Select New Date",
+                                "Add New Date",
                                 style: CustomTextStyles.buttonText,
                               ),
                               SizedBox(

@@ -323,7 +323,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         height: 5.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.63,
+                        width: MediaQuery.of(context).size.width * 0.70,
                         height: 90.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
@@ -344,7 +344,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                 size: 40,
                               ),
                               SizedBox(
-                                width: 15.0,
+                                width: 20.0,
                               ),
                               Text(
                                 "Select Date",
@@ -442,7 +442,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         height: 50.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.55,
+                        width: MediaQuery.of(context).size.width * 0.60,
                         height: 100.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
