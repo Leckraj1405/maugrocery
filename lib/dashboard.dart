@@ -27,6 +27,7 @@ class _DashboardPageState extends State<DashboardPage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final dashboardFormKey = GlobalKey<FormState>();
+
   String listname;
   String itemname;
   String quantity;
@@ -34,8 +35,10 @@ class _DashboardPageState extends State<DashboardPage> {
 
   _getCurrentUser() {
     if (_auth.currentUser != null) {
+      print('------------------------------------------');
       print(' uid : ${_auth.currentUser.uid}');
       print('email : ${_auth.currentUser.email}');
+      print('------------------------------------------');
     }
   }
 
@@ -51,7 +54,9 @@ class _DashboardPageState extends State<DashboardPage> {
       final user = await _auth.currentUser;
       if (user != null) {
         final loggedInUser = user;
+        print('------------------------------------------');
         print(loggedInUser.email);
+        print('------------------------------------------');
       }
     } catch (e) {
       print(e);
@@ -130,17 +135,13 @@ class _DashboardPageState extends State<DashboardPage> {
                       Container(
                         child: Image.asset('images/transparentBackground.png'),
                       ),
-                      // Column(
-                      //   children: cardList,
-                      // ),
                       Text(
                         "Currently logged in as: ${_auth.currentUser.email}",
                         style: TextStyle(
                           color: Colors.blueGrey[700],
-                          fontSize: 12.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.bold,
                         ),
-                        // style: CustomTextStyles.fieldLabelStyle,
                       ),
                       SizedBox(
                         height: 10.0,
@@ -159,18 +160,10 @@ class _DashboardPageState extends State<DashboardPage> {
                               fontSize: 35.0,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline),
-                          // style: CustomTextStyles.fieldLabelStyle,
                         ),
                       ),
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width * 0.6,
-                      //   child: Text(
-                      //     "List Name",
-                      //     style: CustomTextStyles.fieldLabelStyle,
-                      //   ),
-                      // ),
                       SizedBox(
-                        height: 40.0,
+                        height: 20.0,
                       ),
                       Container(
                         height: 100.0,
@@ -189,7 +182,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           controller: listnameController,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.storefront_rounded),
-                            labelText: 'List Name',
+                            labelText: 'Store Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -200,16 +193,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       SizedBox(
                         height: 1.0,
                       ),
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width * 0.6,
-                      //   child: Text(
-                      //     "Item Name",
-                      //     style: CustomTextStyles.fieldLabelStyle,
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 15.0,
-                      // ),
                       Container(
                         height: 100.0,
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -238,16 +221,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       SizedBox(
                         height: 1.0,
                       ),
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width * 0.6,
-                      //   child: Text(
-                      //     "Quantity",
-                      //     style: CustomTextStyles.fieldLabelStyle,
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 15.0,
-                      // ),
                       Container(
                         height: 100.0,
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -283,16 +256,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       SizedBox(
                         height: 1.0,
                       ),
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width * 0.6,
-                      //   child: Text(
-                      //     "Notes",
-                      //     style: CustomTextStyles.fieldLabelStyle,
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 15.0,
-                      // ),
                       Container(
                         height: 100.0,
                         width: MediaQuery.of(context).size.width * 0.6,
@@ -387,12 +350,14 @@ class _DashboardPageState extends State<DashboardPage> {
                             String notes = notesController.text;
                             var uuid = Uuid();
                             String id = uuid.v4();
+                            print('------------------------------------------');
                             print("id: $id");
                             print("Store Name: $listname");
                             print("Item Name: $itemname");
                             print("Quantity: $quantity");
                             print("Notes: $notes");
                             print("Date to Purchase: $displayDate");
+                            print('------------------------------------------');
 
                             if (!listnameController.text.isEmpty) {
                               FirebaseAuth _auth = FirebaseAuth.instance;
@@ -411,6 +376,11 @@ class _DashboardPageState extends State<DashboardPage> {
                                   }
                                 ])
                               });
+                              itemnameController.clear();
+                              quantityController.clear();
+                              notesController.clear();
+                              listnameController.clear();
+                              displayDate = "";
                             }
                           },
                           child: Row(

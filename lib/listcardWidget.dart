@@ -14,10 +14,14 @@ class _CardWidgetState extends State<CardWidget> {
   final FlutterTts flutterTts = FlutterTts();
   String userid;
 
+  var _deletedItems = [];
+
   Future getCurrentUser() async {
     FirebaseAuth _auth = FirebaseAuth.instance;
     final uid = _auth.currentUser.uid;
+    print('------------------------------------------');
     print(uid);
+    print('------------------------------------------');
     return uid.toString();
   }
 
@@ -31,7 +35,9 @@ class _CardWidgetState extends State<CardWidget> {
 
   void initState() {
     getCurrentUser().then((id) {
+      print('------------------------------------------');
       print('USER ID: ${id.toString()}');
+      print('------------------------------------------');
       setState(() {
         userid = id.toString();
       });
@@ -156,14 +162,6 @@ class _CardWidgetState extends State<CardWidget> {
                               ),
                               Row(
                                 children: [
-                                  // Expanded(
-                                  //   child: Text(
-                                  //       '${groceryList[index]['listname']}'),
-                                  // ),
-                                  // Expanded(
-                                  //     child: IconButton(
-                                  //   icon: Icon(Icons.delete),
-                                  // )),
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.blueGrey[700],
@@ -174,12 +172,31 @@ class _CardWidgetState extends State<CardWidget> {
                                     child: TextButton(
                                       onPressed: () {
                                         _speak1();
+                                        var groceryData = [];
+                                        setState(() {
+                                          groceryData.add(groceryList[index]);
+                                        });
                                         Vibration.vibrate();
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    EditItemDetailsPage()));
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditItemDetailsPage(
+                                              groceryData: groceryData,
+                                              userId: userid,
+                                              listName: groceryList[index]
+                                                  ['listname'],
+                                              dateCreated: groceryList[index]
+                                                  ['datecreated'],
+                                              itemName: groceryList[index]
+                                                  ['itemname'],
+                                              quantity: groceryList[index]
+                                                  ['quantity'],
+                                              notes: groceryList[index]
+                                                  ['notes'],
+                                            ),
+                                          ),
+                                        );
                                       },
                                       child: Row(
                                         children: [
@@ -215,17 +232,21 @@ class _CardWidgetState extends State<CardWidget> {
                                     ),
                                     child: TextButton(
                                       onPressed: () {
-                                        // FirebaseAuth _auth =
-                                        //     FirebaseAuth.instance;
-                                        // final uid = _auth.currentUser.uid;
-                                        // FirebaseFirestore.instance
-                                        //     .collection("users")
-                                        //     .doc(uid)
-                                        //     .delete();
+                                        print(userid);
+                                        setState(() {
+                                          _deletedItems.add(groceryList[index]);
+                                        });
+
+                                        print(_deletedItems);
+                                        FirebaseFirestore.instance
+                                            .collection("users")
+                                            .doc('$userid')
+                                            .update({
+                                          "grocerylist": FieldValue.arrayRemove(
+                                              _deletedItems)
+                                        });
                                         _speak2();
                                         Vibration.vibrate();
-                                        //call method to delete from database
-                                        //eg. deleteCard(widget.id);
                                       },
                                       child: Row(
                                         children: [
@@ -250,7 +271,7 @@ class _CardWidgetState extends State<CardWidget> {
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         )));

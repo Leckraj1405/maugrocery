@@ -18,28 +18,28 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   bool isHiddenPassword = true;
   final signInFormKey = GlobalKey<FormState>();
+
   String email;
   String password;
+
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
-  // final _auth = FirebaseAuth.instance;
+
   bool loading = false;
 
   FirebaseAuth auth = FirebaseAuth.instance;
-
   _signIn({String email, String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       setState(() {
-        loading = true;
+        loading = false;
       });
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DashboardPage(),
-        ),
-      );
+
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardPage()),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         setState(() {
@@ -71,17 +71,6 @@ class _SignInPageState extends State<SignInPage> {
           loading = false;
         });
         print('Wrong password provided for that user.');
-        // showDialog(
-        //     context: context,
-        //     child: AlertDialog(
-        //       content: Text('wrong password'),
-        //       actions: [
-        //         FlatButton(
-        //           child: Text('Ok'),
-        //           onPressed: () => Navigator.pop(context),
-        //         ),
-        //       ],
-        //     ));
 
         showDialog(
           context: context,
@@ -141,7 +130,6 @@ class _SignInPageState extends State<SignInPage> {
               backgroundColor: Colors.blueGrey[700],
             ),
             body: Container(
-              // key: _form,
               child: Stack(
                 children: [
                   Center(
@@ -189,7 +177,6 @@ class _SignInPageState extends State<SignInPage> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  //labelText: 'username here',
                                 ),
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 22.0),
@@ -260,7 +247,8 @@ class _SignInPageState extends State<SignInPage> {
                                     setState(() {
                                       loading = true;
                                     });
-                                    print('here');
+                                    print(
+                                        '------------------------------------------');
                                     _signIn(
                                         email: emailController.text,
                                         password: passwordController.text);
@@ -354,7 +342,6 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           width: 75.0,
                           height: 75.0,
-                          //color: Colors.black,
                           child: Center(
                             child: Icon(
                               Icons.app_registration,

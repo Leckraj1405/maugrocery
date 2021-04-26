@@ -54,12 +54,10 @@ class _SignUpPageState extends State<SignUpPage> {
         ]
       });
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DashboardPage(),
-        ),
-      );
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => DashboardPage()),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -301,7 +299,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                   _speak1();
                                   Vibration.vibrate();
                                   if (signUpFormKey.currentState.validate()) {
-                                    print('here');
+                                    print(
+                                        '------------------------------------------');
+                                    print('validated');
+                                    print(
+                                        '------------------------------------------');
                                     setState(() {
                                       loading = true;
                                     });
@@ -363,7 +365,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           width: 75.0,
                           height: 75.0,
-                          //color: Colors.black,
                           child: Center(
                             child: Icon(
                               Icons.mic_outlined,

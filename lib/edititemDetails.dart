@@ -1,17 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:maugrocery/common.dart';
 import 'package:maugrocery/custom_dialog.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-
 import 'dashboard.dart';
 
 class EditItemDetailsPage extends StatefulWidget {
   DocumentSnapshot docToEdit;
-  EditItemDetailsPage({this.docToEdit});
+
+  final String itemName;
+  final String listName;
+  final String quantity;
+  final String notes;
+  final String dateCreated;
+  final String userId;
+  var groceryData = [];
+
+  EditItemDetailsPage({
+    this.docToEdit,
+    this.itemName,
+    this.listName,
+    this.quantity,
+    this.notes,
+    this.dateCreated,
+    this.userId,
+    this.groceryData,
+  });
 
   @override
   _EditItemDetailsPageState createState() => _EditItemDetailsPageState();
@@ -19,20 +35,27 @@ class EditItemDetailsPage extends StatefulWidget {
 
 class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
   TextEditingController itemnameController = new TextEditingController();
+  TextEditingController listnameController = new TextEditingController();
   TextEditingController quantityController = new TextEditingController();
   TextEditingController notesController = new TextEditingController();
 
-  // @override
-  // void initState() {
-  //   itemnameController =
-  //       TextEditingController(text: widget.docToEdit.data['itemname']);
-  //   quantityController =
-  //       TextEditingController(text: widget.docToEdit.data['quantity']);
-  //   notesController =
-  //       TextEditingController(text: widget.docToEdit.data['notes']);
-  //   super.initState();
-  // }
+  _initialization() {
+    setState(() {
+      itemnameController.text = widget.itemName;
+      listnameController.text = widget.listName;
+      quantityController.text = widget.quantity;
+      notesController.text = widget.notes;
+      displayDate = widget.dateCreated;
+    });
+  }
 
+  @override
+  initState() {
+    super.initState();
+    _initialization();
+  }
+
+  String listname;
   String itemname;
   String quantity;
   String notes;
@@ -109,8 +132,53 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.7,
                         child: Text(
+                          "New Store Name",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      Container(
+                        height: 100.0,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: TextFormField(
+                          controller: listnameController,
+                          validator: (listname) {
+                            if (listname.isEmpty) {
+                              return "Please enter list name";
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            Vibration.vibrate();
+                            listname = value;
+                          },
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.storefront_rounded),
+                            labelText: 'New Store Name',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            //labelText: 'password here',
+                          ),
+                          style: TextStyle(color: Colors.black, fontSize: 22.0),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
                           "New Item Name",
-                          style: CustomTextStyles.fieldLabelStyle,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
                         ),
                       ),
                       SizedBox(
@@ -149,7 +217,10 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         width: MediaQuery.of(context).size.width * 0.7,
                         child: Text(
                           "New Quantity",
-                          style: CustomTextStyles.fieldLabelStyle,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
                         ),
                       ),
                       SizedBox(
@@ -192,7 +263,10 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         width: MediaQuery.of(context).size.width * 0.7,
                         child: Text(
                           "New Notes",
-                          style: CustomTextStyles.fieldLabelStyle,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
                         ),
                       ),
                       SizedBox(
@@ -283,7 +357,9 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
-                            _speak1();
+                            print(widget.userId);
+                            String listname = listnameController.text;
+                            print("This is your new store name: $listname");
                             String itemname = itemnameController.text;
                             print("This is your new item name: $itemname");
                             String quantity = quantityController.text;
@@ -292,24 +368,38 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                             print("This is your new notes: $notes");
                             print("This is your new date: $displayDate");
 
+                            _speak1();
                             Vibration.vibrate();
                             if (edititemFormKey.currentState.validate()) {
                               print('here');
-                              FirebaseAuth _auth = FirebaseAuth.instance;
-                              final uid = _auth.currentUser.uid;
                               FirebaseFirestore.instance
                                   .collection("users")
-                                  .doc(uid)
+                                  .doc(widget.userId)
+                                  .update({
+                                "grocerylist":
+                                    FieldValue.arrayRemove(widget.groceryData)
+                              });
+                              FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(widget.userId)
                                   .update({
                                 "grocerylist": FieldValue.arrayUnion([
                                   {
+                                    "listname": "${listnameController.text}",
                                     "datecreated": "$displayDate",
-                                    "itemname": "$itemname",
-                                    "quantity": "$quantity",
-                                    "notes": "$notes"
+                                    "itemname": "${itemnameController.text}",
+                                    "quantity": "${quantityController.text}",
+                                    "notes": "${notesController.text}"
                                   }
                                 ])
                               });
+
+                              listnameController.clear();
+                              itemnameController.clear();
+                              quantityController.clear();
+                              notesController.clear();
+                              displayDate = "";
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
