@@ -45,11 +45,11 @@ class _SignUpPageState extends State<SignUpPage> {
         "email": email,
         "grocerylist": [
           {
-            "listname": "",
-            "datecreated": "",
-            "itemname": "",
-            "quantity": "",
-            "notes": ""
+            "listname": "sample",
+            "datecreated": "2020-10-10",
+            "itemname": "sample",
+            "quantity": "111",
+            "notes": "sample"
           }
         ]
       });
