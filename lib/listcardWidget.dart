@@ -165,7 +165,12 @@ class _CardWidgetState extends State<CardWidget> {
                                   //   icon: Icon(Icons.delete),
                                   // )),
                                   Container(
-                                    color: Colors.blueGrey[700],
+                                    decoration: BoxDecoration(
+                                      color: Colors.blueGrey[700],
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
                                     child: TextButton(
                                       onPressed: () {
                                         _speak1();
@@ -202,7 +207,12 @@ class _CardWidgetState extends State<CardWidget> {
                                     width: 30.0,
                                   ),
                                   Container(
-                                    color: Colors.blueGrey[700],
+                                    decoration: BoxDecoration(
+                                      color: Colors.blueGrey[700],
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
                                     child: TextButton(
                                       onPressed: () {
                                         // FirebaseAuth _auth =
