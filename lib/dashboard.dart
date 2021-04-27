@@ -67,6 +67,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   DateTime _date = new DateTime.now();
   String displayDate = "No date selected";
+
   void _selectDate() async {
     Vibration.vibrate();
     final DateTime newDate = await showDatePicker(

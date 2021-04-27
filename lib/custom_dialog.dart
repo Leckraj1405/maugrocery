@@ -16,6 +16,7 @@ class CustomDialog extends StatelessWidget {
     this.secondColor,
     this.headerIcon,
   });
+
   @override
   Widget build(BuildContext context) {
     return Dialog(

@@ -28,6 +28,7 @@ class _SignInPageState extends State<SignInPage> {
   bool loading = false;
 
   FirebaseAuth auth = FirebaseAuth.instance;
+
   _signIn({String email, String password}) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
