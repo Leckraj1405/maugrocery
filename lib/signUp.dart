@@ -129,7 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
     Future _speak1() async {
-      await flutterTts.speak("User registered.");
+      await flutterTts.speak("User registration in process.");
     }
 
     Future _speak2() async {
