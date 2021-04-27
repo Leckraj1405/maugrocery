@@ -18,7 +18,7 @@ class _HelpPageState extends State<HelpPage> {
       await flutterTts.setVolume(1);
       await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
-          "MauGrocery is a grocery inventory planner. Create your item card by entering the supermarket name, item name, and its related details. MauGrocery is suitable for people with visual impairments, and voice synthesisers help user to navigate the application.");
+          "MauGrocery is a grocery inventory planner. Create your item card by entering the store name, item name, and its related details. MauGrocery is suitable for people with visual impairments, and voice synthesisers help user to navigate the application.");
     }
 
     return Scaffold(
@@ -58,7 +58,7 @@ class _HelpPageState extends State<HelpPage> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: Text(
-                          "MauGrocery is a grocery inventory planner. Create your grocery list, and start adding your items in your list.",
+                          "MauGrocery is a grocery inventory planner. Create your item card by entering the store name, item name, and its related details.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 22.0, color: Colors.blueGrey[700]),

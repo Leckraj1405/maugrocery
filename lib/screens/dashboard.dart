@@ -105,11 +105,11 @@ class _DashboardPageState extends State<DashboardPage> {
       await flutterTts.setVolume(1);
       await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
-          "Enter your item details in the text field provided, such as the supermarket name, item name, its quantity, the purchase date and add some notes as well. Hit add item to add the item to your list, and find the sign out options below.");
+          "Enter your item details in the text field provided, such as the store name, item name, its quantity, the purchase date and add some notes as well. Hit add item to add the item to your list, and find the sign out options below.");
     }
 
     Future _speak1() async {
-      await flutterTts.speak("Item added.");
+      await flutterTts.speak("Item is being added.");
     }
 
     Future _speak2() async {
