@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Varun/AndroidStudioProjects/maugrocery/lib/screens/help.dart';
-import 'file:///C:/Users/Varun/AndroidStudioProjects/maugrocery/lib/screens/signIn.dart';
-import 'file:///C:/Users/Varun/AndroidStudioProjects/maugrocery/lib/screens/signUp.dart';
-import 'package:vibration/vibration.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:vibration/vibration.dart';
+import 'package:maugrocery/screens/help.dart';
+import 'package:maugrocery/screens/signIn.dart';
+import 'package:maugrocery/screens/signUp.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
