@@ -11,6 +11,11 @@ class _HelpPageState extends State<HelpPage> {
   final FlutterTts flutterTts = FlutterTts();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Future _speak() async {
       await flutterTts.setLanguage("en-GB");
