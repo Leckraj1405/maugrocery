@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:form_validator/form_validator.dart';
-import 'package:maugrocery/common.dart';
-import 'package:maugrocery/dashboard.dart';
-import 'package:maugrocery/signUp.dart';
-import 'package:vibration/vibration.dart';
-import 'custom_dialog.dart';
-import 'loading.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:form_validator/form_validator.dart';
+import 'package:vibration/vibration.dart';
+import 'package:maugrocery/screens/dashboard.dart';
+import 'package:maugrocery/screens/signUp.dart';
+import 'package:maugrocery/styles/common.dart';
+import 'package:maugrocery/styles/loading.dart';
+import 'package:maugrocery/styles/custom_dialog.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -168,7 +168,7 @@ class _SignInPageState extends State<SignInPage> {
                                     .maxLength(50)
                                     .build(),
                                 onChanged: (value) {
-                                  HapticFeedback.mediumImpact();
+                                  Vibration.vibrate();
                                   email = value;
                                 },
                                 keyboardType: TextInputType.emailAddress,
@@ -210,7 +210,7 @@ class _SignInPageState extends State<SignInPage> {
                                   return null;
                                 },
                                 onChanged: (value) {
-                                  HapticFeedback.mediumImpact();
+                                  Vibration.vibrate();
                                   password = value;
                                 },
                                 obscureText: isHiddenPassword,

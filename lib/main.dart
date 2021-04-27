@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:maugrocery/help.dart';
-import 'package:maugrocery/signIn.dart';
-import 'package:maugrocery/signUp.dart';
+import 'file:///C:/Users/Varun/AndroidStudioProjects/maugrocery/lib/screens/help.dart';
+import 'file:///C:/Users/Varun/AndroidStudioProjects/maugrocery/lib/screens/signIn.dart';
+import 'file:///C:/Users/Varun/AndroidStudioProjects/maugrocery/lib/screens/signUp.dart';
 import 'package:vibration/vibration.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 

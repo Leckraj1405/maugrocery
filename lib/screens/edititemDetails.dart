@@ -1,69 +1,67 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:maugrocery/listcardWidget.dart';
-import 'package:maugrocery/common.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:uuid/uuid.dart';
-import 'package:vibration/vibration.dart';
-import 'custom_dialog.dart';
-import 'main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:vibration/vibration.dart';
+import 'package:maugrocery/styles/common.dart';
+import 'package:maugrocery/styles/custom_dialog.dart';
+import 'package:maugrocery/screens/dashboard.dart';
 
-class DashboardPage extends StatefulWidget {
-  static const String id = 'DashboardPage';
+class EditItemDetailsPage extends StatefulWidget {
+  DocumentSnapshot docToEdit;
+
+  final String itemName;
+  final String listName;
+  final String quantity;
+  final String notes;
+  final String dateCreated;
+  final String userId;
+  var groceryData = [];
+
+  EditItemDetailsPage({
+    this.docToEdit,
+    this.itemName,
+    this.listName,
+    this.quantity,
+    this.notes,
+    this.dateCreated,
+    this.userId,
+    this.groceryData,
+  });
 
   @override
-  _DashboardPageState createState() => _DashboardPageState();
+  _EditItemDetailsPageState createState() => _EditItemDetailsPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
-  TextEditingController listnameController = new TextEditingController();
+class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
   TextEditingController itemnameController = new TextEditingController();
+  TextEditingController listnameController = new TextEditingController();
   TextEditingController quantityController = new TextEditingController();
   TextEditingController notesController = new TextEditingController();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final dashboardFormKey = GlobalKey<FormState>();
+  _initialization() {
+    setState(() {
+      itemnameController.text = widget.itemName;
+      listnameController.text = widget.listName;
+      quantityController.text = widget.quantity;
+      notesController.text = widget.notes;
+      displayDate = widget.dateCreated;
+    });
+  }
+
+  @override
+  initState() {
+    super.initState();
+    _initialization();
+  }
 
   String listname;
   String itemname;
   String quantity;
   String notes;
 
-  _getCurrentUser() {
-    if (_auth.currentUser != null) {
-      print('------------------------------------------');
-      print(' uid : ${_auth.currentUser.uid}');
-      print('email : ${_auth.currentUser.email}');
-      print('------------------------------------------');
-    }
-  }
-
-  @override
-  void initState() {
-    _getCurrentUser();
-    super.initState();
-    getCurrentUser();
-  }
-
-  void getCurrentUser() async {
-    try {
-      final user = await _auth.currentUser;
-      if (user != null) {
-        final loggedInUser = user;
-        print('------------------------------------------');
-        print(loggedInUser.email);
-        print('------------------------------------------');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  List<Widget> cardList = new List();
+  final edititemFormKey = GlobalKey<FormState>();
+  final FlutterTts flutterTts = FlutterTts();
 
   DateTime _date = new DateTime.now();
   String displayDate = "No date selected";
@@ -75,7 +73,7 @@ class _DashboardPageState extends State<DashboardPage> {
       initialDate: _date,
       firstDate: DateTime(2017, 1),
       lastDate: DateTime(2100, 7),
-      helpText: 'Select Purchase Date',
+      helpText: 'Select New Purchase Date',
     );
     if (newDate != null) {
       displayDate = newDate.toString();
@@ -95,8 +93,6 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  final FlutterTts flutterTts = FlutterTts();
-
   @override
   Widget build(BuildContext context) {
     Future _speak() async {
@@ -105,21 +101,16 @@ class _DashboardPageState extends State<DashboardPage> {
       await flutterTts.setVolume(1);
       await flutterTts.setSpeechRate(0.8);
       await flutterTts.speak(
-          "Enter your item details in the text field provided, such as the supermarket name, item name, its quantity, the purchase date and add some notes as well. Hit add item to add the item to your list, and find the sign out options below.");
+          "Enter your desired supermarket name, item name, notes, new date and quantity. Press update and save button.");
     }
 
     Future _speak1() async {
-      await flutterTts.speak("Item added.");
-    }
-
-    Future _speak2() async {
-      await flutterTts.speak("Signing out.");
+      await flutterTts.speak("Item updated");
     }
 
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text("Home - MauGrocery"),
+        title: Text("Edit Item Details"),
         backgroundColor: Colors.blueGrey[700],
       ),
       body: Container(
@@ -128,7 +119,7 @@ class _DashboardPageState extends State<DashboardPage> {
             Center(
               child: SingleChildScrollView(
                 child: Form(
-                  key: dashboardFormKey,
+                  key: edititemFormKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -136,117 +127,129 @@ class _DashboardPageState extends State<DashboardPage> {
                       Container(
                         child: Image.asset('images/transparentBackground.png'),
                       ),
-                      Text(
-                        "Currently logged in as: ${_auth.currentUser.email}",
-                        style: TextStyle(
-                          color: Colors.blueGrey[700],
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          "New Store Name",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
                         ),
                       ),
                       SizedBox(
                         height: 10.0,
                       ),
-                      CardWidget(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        alignment: AlignmentDirectional.center,
-                        child: Text(
-                          "Enter Grocery Details",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 35.0,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
                       Container(
                         height: 100.0,
-                        width: MediaQuery.of(context).size.width * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         child: TextFormField(
+                          controller: listnameController,
                           validator: (listname) {
                             if (listname.isEmpty) {
-                              return "List name cannot be empty";
+                              return "Please enter list name";
                             }
                             return null;
                           },
                           onChanged: (value) {
-                            HapticFeedback.mediumImpact();
+                            Vibration.vibrate();
                             listname = value;
                           },
-                          controller: listnameController,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.storefront_rounded),
-                            labelText: 'Store Name',
+                            labelText: 'New Store Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
+                            //labelText: 'password here',
                           ),
                           style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
-                        height: 1.0,
+                        height: 15.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          "New Item Name",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       Container(
                         height: 100.0,
-                        width: MediaQuery.of(context).size.width * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         child: TextFormField(
+                          controller: itemnameController,
                           validator: (itemname) {
                             if (itemname.isEmpty) {
-                              return "Item name cannot be empty";
+                              return "Please enter item name";
                             }
                             return null;
                           },
                           onChanged: (value) {
-                            HapticFeedback.mediumImpact();
+                            Vibration.vibrate();
                             itemname = value;
                           },
-                          controller: itemnameController,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.fastfood_sharp),
-                            labelText: 'Item Name',
+                            labelText: 'New Item Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
+                            //labelText: 'password here',
                           ),
                           style: TextStyle(color: Colors.black, fontSize: 22.0),
                         ),
                       ),
                       SizedBox(
-                        height: 1.0,
+                        height: 15.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          "New Quantity",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       Container(
                         height: 100.0,
-                        width: MediaQuery.of(context).size.width * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         child: TextFormField(
+                          controller: quantityController,
                           validator: (quantity) {
                             if (quantity.isEmpty) {
-                              return "Quantity cannot be empty";
-                            } else if (quantity.length > 3) {
-                              return "Quantity too high, 3 digits max";
+                              return "Please enter quantity";
                             }
                             return null;
                           },
                           maxLength: 3,
                           onChanged: (value) {
-                            HapticFeedback.mediumImpact();
+                            Vibration.vibrate();
                             quantity = value;
                           },
-                          controller: quantityController,
                           keyboardType: TextInputType.number,
                           inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.tag),
-                            labelText: 'Quantity',
+                            labelText: 'New Quantity',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -255,26 +258,39 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 1.0,
+                        height: 15.0,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        child: Text(
+                          "New Notes",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
                       ),
                       Container(
                         height: 100.0,
-                        width: MediaQuery.of(context).size.width * 0.6,
+                        width: MediaQuery.of(context).size.width * 0.7,
                         child: TextFormField(
+                          controller: notesController,
                           validator: (notes) {
                             if (notes.isEmpty) {
-                              return "Notes cannot be empty";
+                              return "Please enter notes";
                             }
                             return null;
                           },
                           onChanged: (value) {
-                            HapticFeedback.mediumImpact();
+                            Vibration.vibrate();
                             notes = value;
                           },
-                          controller: notesController,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.notes_sharp),
-                            labelText: 'Notes',
+                            labelText: 'New Notes',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
@@ -283,11 +299,11 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 5.0,
+                        height: 15.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.70,
-                        height: 90.0,
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        height: 80.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
                           borderRadius: BorderRadius.all(
@@ -299,7 +315,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           child: Row(
                             children: [
                               SizedBox(
-                                width: 15.0,
+                                width: 10.0,
                               ),
                               Icon(
                                 Icons.date_range_outlined,
@@ -307,10 +323,10 @@ class _DashboardPageState extends State<DashboardPage> {
                                 size: 40,
                               ),
                               SizedBox(
-                                width: 20.0,
+                                width: 15.0,
                               ),
                               Text(
-                                "Select Date",
+                                "Add New Date",
                                 style: CustomTextStyles.buttonText,
                               ),
                               SizedBox(
@@ -320,99 +336,19 @@ class _DashboardPageState extends State<DashboardPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 22.0),
+                      SizedBox(height: 20.0),
                       Text(
-                        "Purchase Date: $displayDate",
+                        "Selected Date: $displayDate",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 20.0,
+                          fontSize: 22.0,
                         ),
                       ),
                       SizedBox(
-                        height: 50.0,
+                        height: 40.0,
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFC6011),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
-                        child: TextButton(
-                          onPressed: () {
-                            _speak1();
-                            Vibration.vibrate();
-                            if (!dashboardFormKey.currentState.validate()) {}
-                            String listname = listnameController.text;
-                            String itemname = itemnameController.text;
-                            String quantity = quantityController.text;
-                            String notes = notesController.text;
-                            var uuid = Uuid();
-                            String id = uuid.v4();
-                            print('------------------------------------------');
-                            print("id: $id");
-                            print("Store Name: $listname");
-                            print("Item Name: $itemname");
-                            print("Quantity: $quantity");
-                            print("Notes: $notes");
-                            print("Date to Purchase: $displayDate");
-                            print('------------------------------------------');
-
-                            if (!listnameController.text.isEmpty) {
-                              FirebaseAuth _auth = FirebaseAuth.instance;
-                              final uid = _auth.currentUser.uid;
-                              FirebaseFirestore.instance
-                                  .collection("users")
-                                  .doc(uid)
-                                  .update({
-                                "grocerylist": FieldValue.arrayUnion([
-                                  {
-                                    "listname": "$listname",
-                                    "datecreated": "$displayDate",
-                                    "itemname": "$itemname",
-                                    "quantity": "$quantity",
-                                    "notes": "$notes"
-                                  }
-                                ])
-                              });
-                              itemnameController.clear();
-                              quantityController.clear();
-                              notesController.clear();
-                              listnameController.clear();
-                              displayDate = "";
-                            }
-                          },
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                              Icon(
-                                Icons.add_box_outlined,
-                                color: Colors.black,
-                                size: 45,
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                              Text(
-                                "Add Item",
-                                style: CustomTextStyles.buttonText,
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50.0,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.60,
+                        width: MediaQuery.of(context).size.width * 0.70,
                         height: 100.0,
                         decoration: BoxDecoration(
                           color: Color(0xFFFC6011),
@@ -422,35 +358,74 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
-                            _speak2();
-                            Vibration.vibrate(duration: 1000);
-                            await FirebaseAuth.instance.signOut();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MauGrocery(),
-                              ),
-                            );
-                            showDialog(
-                              context: context,
-                              builder: (context) => CustomDialog(
-                                content: Text(
-                                  'Sign Out Successful',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 20.0,
+                            print(widget.userId);
+                            String listname = listnameController.text;
+                            print("This is your new store name: $listname");
+                            String itemname = itemnameController.text;
+                            print("This is your new item name: $itemname");
+                            String quantity = quantityController.text;
+                            print("This is your new quantity: $quantity");
+                            String notes = notesController.text;
+                            print("This is your new notes: $notes");
+                            print("This is your new date: $displayDate");
+
+                            _speak1();
+                            Vibration.vibrate();
+                            if (edititemFormKey.currentState.validate()) {
+                              print('here');
+                              FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(widget.userId)
+                                  .update({
+                                "grocerylist":
+                                    FieldValue.arrayRemove(widget.groceryData)
+                              });
+                              FirebaseFirestore.instance
+                                  .collection("users")
+                                  .doc(widget.userId)
+                                  .update({
+                                "grocerylist": FieldValue.arrayUnion([
+                                  {
+                                    "listname": "${listnameController.text}",
+                                    "datecreated": "$displayDate",
+                                    "itemname": "${itemnameController.text}",
+                                    "quantity": "${quantityController.text}",
+                                    "notes": "${notesController.text}"
+                                  }
+                                ])
+                              });
+
+                              listnameController.clear();
+                              itemnameController.clear();
+                              quantityController.clear();
+                              notesController.clear();
+                              displayDate = "";
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DashboardPage()));
+                              showDialog(
+                                context: context,
+                                builder: (context) => CustomDialog(
+                                  content: Text(
+                                    'Item Updated Successfully',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: 20.0,
+                                    ),
+                                  ),
+                                  title: Text('MauGrocery'),
+                                  firstColor: Colors.green,
+                                  secondColor: Colors.white,
+                                  headerIcon: Icon(
+                                    Icons.check_circle_outline,
+                                    size: 120.0,
+                                    color: Colors.white,
                                   ),
                                 ),
-                                title: Text('MauGrocery'),
-                                firstColor: Colors.green,
-                                secondColor: Colors.white,
-                                headerIcon: Icon(
-                                  Icons.check_circle_outline,
-                                  size: 120.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            );
+                              );
+                            }
                           },
                           child: Row(
                             children: [
@@ -458,15 +433,15 @@ class _DashboardPageState extends State<DashboardPage> {
                                 width: 15.0,
                               ),
                               Icon(
-                                Icons.logout,
+                                Icons.edit_outlined,
                                 color: Colors.black,
-                                size: 45,
+                                size: 40,
                               ),
                               SizedBox(
                                 width: 15.0,
                               ),
                               Text(
-                                "Sign Out",
+                                "Update Item",
                                 style: CustomTextStyles.buttonText,
                               ),
                               SizedBox(
@@ -491,7 +466,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 child: TextButton(
                   onPressed: () {
                     _speak();
-                    Vibration.vibrate();
+                    HapticFeedback.mediumImpact();
                     print("voice synthesis running");
                   },
                   child: Container(

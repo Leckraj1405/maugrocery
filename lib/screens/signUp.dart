@@ -1,15 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:maugrocery/common.dart';
-import 'package:maugrocery/dashboard.dart';
-import 'package:maugrocery/loading.dart';
-import 'package:maugrocery/signIn.dart';
 import 'package:vibration/vibration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'custom_dialog.dart';
-import 'package:flutter_tts/flutter_tts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:maugrocery/screens/dashboard.dart';
+import 'package:maugrocery/screens/signIn.dart';
+import 'package:maugrocery/styles/common.dart';
+import 'package:maugrocery/styles/loading.dart';
+import 'package:maugrocery/styles/custom_dialog.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -181,7 +181,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     .maxLength(50)
                                     .build(),
                                 onChanged: (value) {
-                                  HapticFeedback.mediumImpact();
+                                  Vibration.vibrate();
                                   email = value;
                                 },
                                 keyboardType: TextInputType.emailAddress,
@@ -223,7 +223,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   return null;
                                 },
                                 onChanged: (value) {
-                                  HapticFeedback.mediumImpact();
+                                  Vibration.vibrate();
                                   password = value;
                                 },
                                 obscureText: isHiddenPassword,
@@ -267,7 +267,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   return null;
                                 },
                                 onChanged: (value) {
-                                  HapticFeedback.mediumImpact();
+                                  Vibration.vibrate();
                                   confirmpassword = value;
                                 },
                                 obscureText: true,
