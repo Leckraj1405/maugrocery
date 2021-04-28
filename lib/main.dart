@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:vibration/vibration.dart';
 import 'package:maugrocery/screens/help.dart';
-import 'package:maugrocery/screens/signIn.dart';
+import 'package:maugrocery/screens/sign_in.dart';
 import 'package:maugrocery/screens/signUp.dart';
 
 void main() async {

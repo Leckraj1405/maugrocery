@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:maugrocery/styles/listcardWidget.dart';
+import 'package:maugrocery/styles/item_card_widget.dart';
 import 'package:maugrocery/styles/common.dart';
 import 'package:maugrocery/styles/custom_dialog.dart';
 import 'package:maugrocery/main.dart';

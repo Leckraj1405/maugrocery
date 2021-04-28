@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:maugrocery/screens/edititemDetails.dart';
+import 'package:maugrocery/screens/edit_item_details.dart';
 import 'package:vibration/vibration.dart';
 
 class CardWidget extends StatefulWidget {

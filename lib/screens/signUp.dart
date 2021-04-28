@@ -6,7 +6,7 @@ import 'package:vibration/vibration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maugrocery/screens/dashboard.dart';
-import 'package:maugrocery/screens/signIn.dart';
+import 'package:maugrocery/screens/sign_in.dart';
 import 'package:maugrocery/styles/common.dart';
 import 'package:maugrocery/styles/loading.dart';
 import 'package:maugrocery/styles/custom_dialog.dart';
