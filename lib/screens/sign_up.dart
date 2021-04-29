@@ -1,15 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:vibration/vibration.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:maugrocery/screens/dashboard.dart';
 import 'package:maugrocery/screens/sign_in.dart';
 import 'package:maugrocery/styles/common.dart';
-import 'package:maugrocery/styles/loading.dart';
 import 'package:maugrocery/styles/custom_dialog.dart';
+import 'package:maugrocery/styles/loading.dart';
+import 'package:vibration/vibration.dart';
 
 class SignUpPage extends StatefulWidget {
   @override

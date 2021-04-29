@@ -1,15 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:uuid/uuid.dart';
-import 'package:vibration/vibration.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:maugrocery/styles/item_card_widget.dart';
+import 'package:maugrocery/main.dart';
 import 'package:maugrocery/styles/common.dart';
 import 'package:maugrocery/styles/custom_dialog.dart';
-import 'package:maugrocery/main.dart';
+import 'package:maugrocery/styles/item_card_widget.dart';
+import 'package:uuid/uuid.dart';
+import 'package:vibration/vibration.dart';
 
 class DashboardPage extends StatefulWidget {
   static const String id = 'DashboardPage';
@@ -19,20 +19,23 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  //various controllers to get data from textfields
   TextEditingController listnameController = new TextEditingController();
   TextEditingController itemnameController = new TextEditingController();
   TextEditingController quantityController = new TextEditingController();
   TextEditingController notesController = new TextEditingController();
 
+  //Firebase Firestore initialisation
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final dashboardFormKey = GlobalKey<FormState>();
+  final dashboardFormKey = GlobalKey<FormState>(); //key to validate forms
 
   String listname;
   String itemname;
   String quantity;
   String notes;
 
+  //method to get the currently logged in user
   _getCurrentUser() {
     if (_auth.currentUser != null) {
       print('------------------------------------------');
@@ -44,7 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   void initState() {
-    _getCurrentUser();
+    _getCurrentUser(); //to make sure than user authentication has been performed to access dashboard
     super.initState();
     getCurrentUser();
   }
@@ -63,7 +66,8 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  List<Widget> cardList = new List();
+  List<Widget> cardList =
+      new List(); //initialisation list to display item tiles
 
   DateTime _date = new DateTime.now();
   String displayDate = "No date selected";
@@ -71,6 +75,7 @@ class _DashboardPageState extends State<DashboardPage> {
   void _selectDate() async {
     Vibration.vibrate();
     final DateTime newDate = await showDatePicker(
+      //date picker to select date
       context: context,
       initialDate: _date,
       firstDate: DateTime(2017, 1),
@@ -138,6 +143,7 @@ class _DashboardPageState extends State<DashboardPage> {
                       ),
                       Text(
                         "Currently logged in as: ${_auth.currentUser.email}",
+                        //displays the currently logged in user in the application
                         style: TextStyle(
                           color: Colors.blueGrey[700],
                           fontSize: 14.0,
@@ -145,9 +151,20 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                       ),
                       SizedBox(
-                        height: 10.0,
+                        height: 30.0,
                       ),
-                      CardWidget(),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        alignment: AlignmentDirectional.center,
+                        child: Text(
+                          "Your Items",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      CardWidget(), //widget to display item details
                       SizedBox(
                         height: 30.0,
                       ),
@@ -198,6 +215,7 @@ class _DashboardPageState extends State<DashboardPage> {
                         height: 100.0,
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: TextFormField(
+                          //textfield validation
                           validator: (itemname) {
                             if (itemname.isEmpty) {
                               return "Item name cannot be empty";
@@ -235,14 +253,17 @@ class _DashboardPageState extends State<DashboardPage> {
                             return null;
                           },
                           maxLength: 3,
+                          //maximum quantity
                           onChanged: (value) {
                             Vibration.vibrate();
                             quantity = value;
                           },
                           controller: quantityController,
                           keyboardType: TextInputType.number,
+                          //keyboard type set to numeric
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.digitsOnly
+                            FilteringTextInputFormatter
+                                .digitsOnly //only numeric values
                           ],
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.tag),
@@ -349,7 +370,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             String itemname = itemnameController.text;
                             String quantity = quantityController.text;
                             String notes = notesController.text;
-                            var uuid = Uuid();
+                            var uuid = Uuid(); //id for each item added
                             String id = uuid.v4();
                             print('------------------------------------------');
                             print("id: $id");
@@ -360,7 +381,10 @@ class _DashboardPageState extends State<DashboardPage> {
                             print("Date to Purchase: $displayDate");
                             print('------------------------------------------');
 
-                            if (!listnameController.text.isEmpty) {
+                            if (!listnameController.text.isEmpty ||
+                                !itemnameController.text.isEmpty ||
+                                !quantityController.text.isEmpty ||
+                                !notesController.text.isEmpty) {
                               FirebaseAuth _auth = FirebaseAuth.instance;
                               final uid = _auth.currentUser.uid;
                               FirebaseFirestore.instance
@@ -377,6 +401,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                   }
                                 ])
                               });
+                              //clear textfields after adding items
                               itemnameController.clear();
                               quantityController.clear();
                               notesController.clear();
@@ -431,6 +456,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                 builder: (context) => MauGrocery(),
                               ),
                             );
+                            //dialog box to show user successful sign out
                             showDialog(
                               context: context,
                               builder: (context) => CustomDialog(
@@ -488,6 +514,7 @@ class _DashboardPageState extends State<DashboardPage> {
               padding: const EdgeInsets.only(left: 1, bottom: 1),
               child: Align(
                 alignment: Alignment.bottomLeft,
+                //speech synthesis button to show help on screen
                 child: TextButton(
                   onPressed: () {
                     _speak();

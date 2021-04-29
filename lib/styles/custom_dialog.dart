@@ -2,6 +2,7 @@ library custom_dialog;
 
 import 'package:flutter/material.dart';
 
+//custom dialog box
 class CustomDialog extends StatelessWidget {
   final Text content;
   final Text title;

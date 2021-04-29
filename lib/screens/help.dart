@@ -26,6 +26,7 @@ class _HelpPageState extends State<HelpPage> {
           "MauGrocery is a grocery inventory planner. Create your item card by entering the store name, item name, and its related details. MauGrocery is suitable for people with visual impairments, and voice synthesisers help user to navigate the application.");
     }
 
+    // the help page shows information about the purpose of MauGrocery
     return Scaffold(
       appBar: AppBar(
         title: Text("App Information"),

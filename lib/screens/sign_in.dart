@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:vibration/vibration.dart';
 import 'package:maugrocery/screens/dashboard.dart';
-import 'package:maugrocery/screens/signUp.dart';
+import 'package:maugrocery/screens/sign_up.dart';
 import 'package:maugrocery/styles/common.dart';
-import 'package:maugrocery/styles/loading.dart';
 import 'package:maugrocery/styles/custom_dialog.dart';
+import 'package:maugrocery/styles/loading.dart';
+import 'package:vibration/vibration.dart';
 
 class SignInPage extends StatefulWidget {
   @override

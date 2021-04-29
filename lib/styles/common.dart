@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//custom text styles
 class CustomTextStyles {
   static TextStyle buttonText =
       new TextStyle(fontSize: 30.0, color: Colors.black);

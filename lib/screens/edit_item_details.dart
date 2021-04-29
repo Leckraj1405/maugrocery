@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:vibration/vibration.dart';
+import 'package:maugrocery/screens/dashboard.dart';
 import 'package:maugrocery/styles/common.dart';
 import 'package:maugrocery/styles/custom_dialog.dart';
-import 'package:maugrocery/screens/dashboard.dart';
+import 'package:vibration/vibration.dart';
 
 class EditItemDetailsPage extends StatefulWidget {
-  DocumentSnapshot docToEdit;
+  DocumentSnapshot docToEdit; //the document to edit as per Firestore
 
   final String itemName;
   final String listName;
@@ -40,6 +40,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
   TextEditingController notesController = new TextEditingController();
 
   _initialization() {
+    //fetching and mapping existing data into textfields
     setState(() {
       itemnameController.text = widget.itemName;
       listnameController.text = widget.listName;
@@ -358,6 +359,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                         ),
                         child: TextButton(
                           onPressed: () async {
+                            //console prints
                             print(widget.userId);
                             String listname = listnameController.text;
                             print("This is your new store name: $listname");
@@ -371,6 +373,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
 
                             _speak1();
                             Vibration.vibrate();
+                            //updating items after validation processes
                             if (edititemFormKey.currentState.validate()) {
                               print('here');
                               FirebaseFirestore.instance
@@ -401,6 +404,7 @@ class _EditItemDetailsPageState extends State<EditItemDetailsPage> {
                               notesController.clear();
                               displayDate = "";
 
+                              //user redirected to dashboard page after updating item
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

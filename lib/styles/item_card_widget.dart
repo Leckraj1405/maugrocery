@@ -14,8 +14,10 @@ class _CardWidgetState extends State<CardWidget> {
   final FlutterTts flutterTts = FlutterTts();
   String userid;
 
+  //array of deleted item
   var _deletedItems = [];
 
+  //getting currently logged in user
   Future getCurrentUser() async {
     FirebaseAuth _auth = FirebaseAuth.instance;
     final uid = _auth.currentUser.uid;
@@ -48,11 +50,14 @@ class _CardWidgetState extends State<CardWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection("users").snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection("users")
+          .snapshots(), //setting path where to exchange data
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
           return Center(
-            child: CircularProgressIndicator(),
+            child:
+                CircularProgressIndicator(), //a loader is displayed if there are no data or when data is being fetched from Firestore
           );
         }
         return Container(
@@ -60,15 +65,17 @@ class _CardWidgetState extends State<CardWidget> {
           width: 370,
           child: ListView.builder(
             itemCount: snapshot.data.docs.length,
+            //builds the item widget as per number of item in database
             itemBuilder: (context, index) {
               if (userid == snapshot.data.docs[index].id) {
-                final List<dynamic> groceryList =
-                    snapshot.data.docs[index]['grocerylist'];
+                final List<dynamic> groceryList = snapshot.data.docs[index]
+                    ['grocerylist']; //json data into array
 
                 return ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: groceryList.length,
+                    //building item card
                     itemBuilder: (context, index) => Card(
                         elevation: 10.0,
                         shape: RoundedRectangleBorder(
@@ -83,6 +90,7 @@ class _CardWidgetState extends State<CardWidget> {
                             children: [
                               Text(
                                 'Store: ${groceryList[index]['listname']}',
+                                //json data in array
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     color: Colors.black,
@@ -184,6 +192,7 @@ class _CardWidgetState extends State<CardWidget> {
                                                 EditItemDetailsPage(
                                               groceryData: groceryData,
                                               userId: userid,
+                                              //mapping data for edit into appropriate textfields
                                               listName: groceryList[index]
                                                   ['listname'],
                                               dateCreated: groceryList[index]
@@ -237,6 +246,7 @@ class _CardWidgetState extends State<CardWidget> {
                                           _deletedItems.add(groceryList[index]);
                                         });
 
+                                        //delete items from database
                                         print(_deletedItems);
                                         FirebaseFirestore.instance
                                             .collection("users")

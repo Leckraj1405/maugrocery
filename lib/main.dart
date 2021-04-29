@@ -1,14 +1,15 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:vibration/vibration.dart';
 import 'package:maugrocery/screens/help.dart';
 import 'package:maugrocery/screens/sign_in.dart';
-import 'package:maugrocery/screens/signUp.dart';
+import 'package:maugrocery/screens/sign_up.dart';
+import 'package:vibration/vibration.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  WidgetsFlutterBinding
+      .ensureInitialized(); //to interact with the Flutter engine
+  await Firebase.initializeApp(); //call native code to initialize Firebase
   runApp(MauGrocery());
 }
 
@@ -38,6 +39,7 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     Future _speak() async {
+      //speech synthesis initialisation
       //print(await flutterTts.getLanguages);
       await flutterTts.setLanguage("en-GB");
       await flutterTts.setPitch(1);
@@ -92,7 +94,8 @@ class _WelcomePageState extends State<WelcomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignInPage()));
+                                  builder: (context) =>
+                                      SignInPage())); //to go to sign in page
                         },
                         child: Row(
                           children: [
@@ -138,7 +141,8 @@ class _WelcomePageState extends State<WelcomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignUpPage(),
+                              builder: (context) =>
+                                  SignUpPage(), // to go to sign up page
                             ),
                           );
                         },
@@ -180,8 +184,8 @@ class _WelcomePageState extends State<WelcomePage> {
                 alignment: Alignment.bottomLeft,
                 child: TextButton(
                   onPressed: () {
-                    _speak();
-                    Vibration.vibrate();
+                    _speak(); //speech synthesis
+                    Vibration.vibrate(); //vibration (haptics)
                     print("voice synthesis running");
                   },
                   child: Container(
@@ -229,7 +233,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     //color: Colors.black,
                     child: Center(
                       child: Icon(
-                        Icons.info_outline_rounded,
+                        Icons.info_outline_rounded, //icon
                         color: Colors.black,
                         size: 45,
                       ),
