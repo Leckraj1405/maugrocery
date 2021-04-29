@@ -164,7 +164,7 @@ class _DashboardPageState extends State<DashboardPage> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      CardWidget(), //widget to display item details
+                      CardWidget(), //widget to display item details in card format
                       SizedBox(
                         height: 30.0,
                       ),
