@@ -133,7 +133,7 @@ class _DashboardPageState extends State<DashboardPage> {
             Center(
               child: SingleChildScrollView(
                 child: Form(
-                  key: dashboardFormKey,
+                  key: dashboardFormKey, //for validating inputs
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
